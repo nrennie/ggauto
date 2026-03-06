@@ -1,2 +1,5 @@
 ^ggauto\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
+.lintr
+README.Rmd

@@ -1,11 +1,25 @@
 Package: ggauto
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Automatically create and style 'ggplot2' charts
+Version: 0.0.1
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Nicola", "Rennie", , "nrennie.research@gmail.com", role = c("aut", "cre"))
+Description: `ggauto` is an *opinionated* `ggplot2` extension package to
+    automatically choose the best chart type and styling, based on the
+    types and values in the data.
+License: MIT + file LICENSE
+Depends: 
+    R (>= 4.1)
+Imports:
+    dplyr,
+    ggdist,
+    ggplot2,
+    ggrepel,
+    ggtext,
+    glue,
+    khroma,
+    lemon,
+    lubridate,
+    rlang
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
