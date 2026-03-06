@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggauto
+# ggauto <img src="man/figures/logo.png" align="right" width="120" />
 
 `ggauto` is an *opinionated* `ggplot2` extension package to
 automatically choose the best chart type and styling, based on the types
