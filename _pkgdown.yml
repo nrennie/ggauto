@@ -1,0 +1,5 @@
+url: http://nrennie.rbind.io/ggauto/
+template:
+  package: nrenniepkgdown
+  bootstrap: 5
+
