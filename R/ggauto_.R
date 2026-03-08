@@ -7,7 +7,9 @@ ggauto_density <- function(var1, var2) {
     p_data <- data.frame(x = var2, y = var1)
     if (is.character(var2)) {
       p_data <- p_data |>
-        dplyr::mutate(x = reorder(var1, var2, FUN = median))
+        dplyr::mutate(x = stats::reorder(var1, var2,
+          FUN = stats::median
+        ))
     }
   }
   ggplot2::ggplot(
@@ -37,7 +39,7 @@ ggauto_bar <- function(var1, var2) {
   }
   if (is.character(var1)) {
     p_data <- p_data |>
-      dplyr::mutate(x = reorder(.data$x, -.data$Count))
+      dplyr::mutate(x = stats::reorder(.data$x, -.data$Count))
   }
   g <- ggplot2::ggplot(
     data = p_data,
