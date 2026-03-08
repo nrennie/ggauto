@@ -78,7 +78,7 @@ The available data types are based on the `scale_x/y_` options in
 | Discrete | \- | \- | Bar chart (showing count of categories) | Yes |
 | Discrete | Continuous | \- | Bar chart (if one value per category) or raincloud plot (if multiple values per category) | Yes |
 | Discrete | Discrete | \- | Heatmap (showing count of category combinations) | Yes |
-| Discrete | Discrete | Continuous | Heatmap (showing continuous variable) | Not yet |
+| Discrete | Discrete | Continuous | Heatmap (showing continuous variable) | Yes |
 | Date | Continuous | \- | Line chart | Yes |
 | Date | Continuous | Discrete | Line chart with coloured lines | Yes |
 
@@ -296,6 +296,9 @@ ggauto(plot_data$v1, plot_data$v2)
 
 ## Two discrete variables
 
+A heatmap is created showing the count of each combination of
+categories:
+
 ``` r
 set.seed(123)
 plot_data <- data.frame(
@@ -346,3 +349,35 @@ plot_data |>
 ```
 
 <img src="man/figures/README-unnamed-chunk-22-1.png" alt="" width="100%" />
+
+## Two discrete variables, one continuous variable
+
+If there is only one continuous value per combination of categories, a
+heatmap is created:
+
+``` r
+set.seed(123)
+plot_data <- data.frame(
+  v1 = rep(LETTERS[1:3], each = 3),
+  v2 = rep(LETTERS[24:26], times = 3),
+  v3 = rpois(9, 6)
+)
+ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
+```
+
+<img src="man/figures/README-unnamed-chunk-23-1.png" alt="" width="100%" />
+
+If there are multiple continuous values per combination of categories,
+and error is returned, asking you to first summarise the data:
+
+``` r
+set.seed(123)
+plot_data <- data.frame(
+  v1 = rep(LETTERS[1:3], each = 30),
+  v2 = rep(LETTERS[24:26], times = 30),
+  v3 = rpois(900, 6)
+)
+ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
+#> Error in `ggauto()`:
+#> ! Too many values per category. Summarise data first.
+```

@@ -3,7 +3,9 @@
 #' Automatically create an appropriate ggplot2 chart type based on the
 #' classes of the provided variables.
 #'
-#' @param var1 First variable. Either vector (for example \code{plot_data$v1}), or quoted character string with a column name (for example \code{"v1"}) when passing in data.
+#' @param var1 First variable. Either vector (for example \code{plot_data$v1}),
+#' or quoted character string with a column name (for example \code{"v1"})
+#' when passing in data.
 #' @param var2 Optional second variable.
 #' @param var3 Optional third variable.
 #' @param data Optional data frame to get variables from.
@@ -105,9 +107,27 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
   else if ((is.character(var1) || is.factor(var1)) &&
     (is.character(var2) || is.factor(var2)) &&
     is.null(var3)) {
-    g <- ggauto_heatmap(var1 = var1, var2 = var2, base_size = base_size)
+    g <- ggauto_heatmap(
+      var1 = var1, var2 = var2, var3 = var3,
+      base_size = base_size
+    )
     xlab <- NULL
     ylab <- NULL
+  }
+  # Two discrete var, one continuous -> heatmap plot
+  else if ((is.character(var1) || is.factor(var1)) &&
+    (is.character(var2) || is.factor(var2)) &&
+    is.numeric(var3)) {
+    if (max(table(var1, var2)) > 1) {
+      stop("Too many values per category. Summarise data first.")
+    } else {
+      g <- ggauto_heatmap(
+        var1 = var1, var2 = var2, var3 = var3,
+        base_size = base_size
+      )
+      xlab <- NULL
+      ylab <- NULL
+    }
   }
 
   # Not yet implemented

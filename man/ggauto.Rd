@@ -19,7 +19,9 @@ ggauto(
 )
 }
 \arguments{
-\item{var1}{First variable. Either vector (for example \code{plot_data$v1}), or quoted character string with a column name (for example \code{"v1"}) when passing in data.}
+\item{var1}{First variable. Either vector (for example \code{plot_data$v1}),
+or quoted character string with a column name (for example \code{"v1"})
+when passing in data.}
 
 \item{var2}{Optional second variable.}
 

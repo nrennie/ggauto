@@ -134,10 +134,15 @@ ggauto_line_colour <- function(var1, var2, var3, base_size) {
 }
 
 #' @noRd
-ggauto_heatmap <- function(var1, var2, base_size) {
-  p_data <- data.frame(x = var1, y = var2) |>
-    dplyr::count(.data$x, .data$y) |>
-    dplyr::mutate(r = scales::rescale(.data$n, to = c(0.1, 0.48)))
+ggauto_heatmap <- function(var1, var2, var3, base_size) {
+  if (is.null(var3)) {
+    p_data <- data.frame(x = var1, y = var2) |>
+      dplyr::count(.data$x, .data$y) |>
+      dplyr::mutate(r = scales::rescale(.data$n, to = c(0.1, 0.48)))
+  } else {
+    p_data <- data.frame(x = var1, y = var2, n = var3) |>
+      dplyr::mutate(r = scales::rescale(.data$n, to = c(0.1, 0.48)))
+  }
   if (is.character(var1)) {
     p_data <- p_data |>
       dplyr::mutate(x = stats::reorder(.data$x, .data$n,
