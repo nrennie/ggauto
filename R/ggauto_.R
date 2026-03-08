@@ -51,20 +51,20 @@ ggauto_bar <- function(var1, var2) {
 
 
 #' @noRd
-ggauto_scatter <- function(var1, var2) {
+ggauto_scatter <- function(var1, var2, base_size) {
   g <- ggplot2::ggplot(
     data = data.frame(x = var1, y = var2),
     mapping = ggplot2::aes(x = .data$x, y = .data$y)
   ) +
     auto_zero_line(var2) +
-    ggplot2::geom_point() +
+    ggplot2::geom_point(size = 0.15 * base_size) +
     ggplot2::coord_cartesian(expand = FALSE, clip = "off") +
     auto_y_axis(var2)
   return(g)
 }
 
 #' @noRd
-ggauto_scatter_colour <- function(var1, var2, var3) {
+ggauto_scatter_colour <- function(var1, var2, var3, base_size) {
   g <- ggplot2::ggplot(
     data = data.frame(x = var1, y = var2, z = var3),
     mapping = ggplot2::aes(
@@ -73,7 +73,7 @@ ggauto_scatter_colour <- function(var1, var2, var3) {
     )
   ) +
     auto_zero_line(var2) +
-    ggplot2::geom_point(size = 2) +
+    ggplot2::geom_point(size = 0.15 * base_size) +
     khroma::scale_colour_bright() +
     ggplot2::coord_cartesian(expand = FALSE, clip = "off") +
     auto_y_axis(var2)
@@ -81,13 +81,13 @@ ggauto_scatter_colour <- function(var1, var2, var3) {
 }
 
 #' @noRd
-ggauto_line <- function(var1, var2) {
+ggauto_line <- function(var1, var2, base_size) {
   g <- ggplot2::ggplot(
     data = data.frame(x = var1, y = var2),
     mapping = ggplot2::aes(x = .data$x, y = .data$y)
   ) +
     auto_zero_line(var2) +
-    ggplot2::geom_line() +
+    ggplot2::geom_line(linewidth = 0.1 * base_size) +
     ggplot2::coord_cartesian(expand = FALSE, clip = "off")
   return(g)
 }
@@ -106,7 +106,10 @@ ggauto_line_colour <- function(var1, var2, var3, base_size) {
     )
   ) +
     auto_zero_line(var2) +
-    ggplot2::geom_line(show.legend = FALSE) +
+    ggplot2::geom_line(
+      show.legend = FALSE,
+      linewidth = 0.1 * base_size
+    ) +
     ggplot2::geom_point(
       data = last_date,
       mapping = ggplot2::aes(shape = .data$z)

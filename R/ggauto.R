@@ -33,7 +33,7 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
   }
   # Two continuous var -> scatter plot
   else if (is.numeric(var1) && is.numeric(var2) && is.null(var3)) {
-    g <- ggauto_scatter(var1 = var1, var2 = var2)
+    g <- ggauto_scatter(var1 = var1, var2 = var2, base_size = base_size)
   }
   # Two continuous var, one discrete var -> coloured scatter plot
   else if (is.numeric(var1) &&
@@ -42,14 +42,17 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
     if (length(unique(var3)) > 6) {
       stop("You cannot use more than 6 colours.")
     } else {
-      g <- ggauto_scatter_colour(var1 = var1, var2 = var2, var3 = var3)
+      g <- ggauto_scatter_colour(
+        var1 = var1, var2 = var2,
+        var3 = var3, base_size = base_size
+      )
     }
   }
   # One date var, one continuous -> line chart
   else if (lubridate::is.Date(var1) &&
     is.numeric(var2) &&
     is.null(var3)) {
-    g <- ggauto_line(var1 = var1, var2 = var2)
+    g <- ggauto_line(var1 = var1, var2 = var2, base_size = base_size)
   }
   # One date var, one continuous var, one discrete var -> coloured line chart
   else if (lubridate::is.Date(var1) &&
