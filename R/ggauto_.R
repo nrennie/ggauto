@@ -30,14 +30,14 @@ ggauto_density <- function(var1, var2) {
 ggauto_bar <- function(var1, var2) {
   if (is.null(var2)) {
     p_data <- data.frame(x = var1) |>
-      dplyr::count(x) |>
-      dplyr::rename(Count = n)
+      dplyr::count(.data$x) |>
+      dplyr::rename(Count = .data$n)
   } else {
     p_data <- data.frame(x = var1, Count = var2)
   }
   if (is.character(var1)) {
     p_data <- p_data |>
-      dplyr::mutate(x = reorder(x, -Count))
+      dplyr::mutate(x = reorder(.data$x, -.data$Count))
   }
   g <- ggplot2::ggplot(
     data = p_data,
