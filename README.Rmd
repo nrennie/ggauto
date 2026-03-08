@@ -276,5 +276,18 @@ plot_data$v1 <- factor(plot_data$v1, levels = LETTERS[1:13])
 ggauto(plot_data$v1, plot_data$v2)
 ```
 
+You can also pass in column names and the data directly into `data`:
+
+```{r}
+ggauto("v1", "v2", data = plot_data)
+```
+
+Or using the pipe:
+
+```{r}
+plot_data |> 
+  ggauto("v1", "v2", data = _)
+```
+
 
 

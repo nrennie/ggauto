@@ -321,3 +321,20 @@ ggauto(plot_data$v1, plot_data$v2)
 ```
 
 <img src="man/figures/README-unnamed-chunk-20-1.png" alt="" width="100%" />
+
+You can also pass in column names and the data directly into `data`:
+
+``` r
+ggauto("v1", "v2", data = plot_data)
+```
+
+<img src="man/figures/README-unnamed-chunk-21-1.png" alt="" width="100%" />
+
+Or using the pipe:
+
+``` r
+plot_data |> 
+  ggauto("v1", "v2", data = _)
+```
+
+<img src="man/figures/README-unnamed-chunk-22-1.png" alt="" width="100%" />

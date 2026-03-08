@@ -3,9 +3,10 @@
 #' Automatically create an appropriate ggplot2 chart type based on the
 #' classes of the provided variables.
 #'
-#' @param var1 First variable.
+#' @param var1 First variable. Either vector (for example \code{plot_data$v1}), or quoted character string with a column name (for example \code{"v1"}) when passing in data.
 #' @param var2 Optional second variable.
 #' @param var3 Optional third variable.
+#' @param data Optional data frame to get variables from.
 #' @param xlab Label for the x-axis. Defaults to \code{"x"}.
 #' @param ylab Label for the y-axis. Defaults to \code{"y"}.
 #' @param title Optional plot title.
@@ -21,9 +22,22 @@
 #'
 #' @export
 ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
+                   data = NULL,
                    xlab = "x", ylab = "y",
                    title = NULL, subtitle = NULL, caption = NULL,
                    base_size = 14, base_family = "sans") {
+  # Get data
+  if (!is.null(data)) {
+    if (!is.null(var1)) {
+      var1 <- data[[var1]]
+    }
+    if (!is.null(var2)) {
+      var2 <- data[[var2]]
+    }
+    if (!is.null(var3)) {
+      var3 <- data[[var3]]
+    }
+  }
   # One continuous var -> density plot
   if (is.numeric(var1) &&
     is.null(var2) &&

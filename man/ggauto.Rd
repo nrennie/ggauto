@@ -8,6 +8,7 @@ ggauto(
   var1 = NULL,
   var2 = NULL,
   var3 = NULL,
+  data = NULL,
   xlab = "x",
   ylab = "y",
   title = NULL,
@@ -18,11 +19,13 @@ ggauto(
 )
 }
 \arguments{
-\item{var1}{First variable.}
+\item{var1}{First variable. Either vector (for example \code{plot_data$v1}), or quoted character string with a column name (for example \code{"v1"}) when passing in data.}
 
 \item{var2}{Optional second variable.}
 
 \item{var3}{Optional third variable.}
+
+\item{data}{Optional data frame to get variables from.}
 
 \item{xlab}{Label for the x-axis. Defaults to \code{"x"}.}
 
