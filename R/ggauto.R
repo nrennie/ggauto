@@ -28,7 +28,7 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
   if (is.numeric(var1) &&
     is.null(var2) &&
     is.null(var3)) {
-    g <- ggauto_density(var1 = var1)
+    g <- ggauto_density(var1 = var1, var2 = var2)
     ylab <- NULL
   }
   # Two continuous var -> scatter plot
@@ -58,9 +58,29 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
     if (length(unique(var3)) > 6) {
       stop("You cannot use more than 6 colours.")
     } else {
-      g <- ggauto_line_colour(var1 = var1, var2 = var2, var3 = var3,
-                              base_size = base_size)
+      g <- ggauto_line_colour(
+        var1 = var1, var2 = var2, var3 = var3,
+        base_size = base_size
+      )
     }
+  }
+  # One discrete var -> bar plot
+  else if ((is.character(var1) || is.factor(var1)) &&
+    is.null(var2) &&
+    is.null(var3)) {
+    g <- ggauto_bar(var1 = var1, var2 = var2)
+    ylab <- NULL
+  }
+  # One discrete var, one continuous -> bar plot / raincloud plot
+  else if ((is.character(var1) || is.factor(var1)) &&
+    is.numeric(var2) &&
+    is.null(var3)) {
+    if (max(table(var1)) == 1) {
+      g <- ggauto_bar(var1 = var1, var2 = var2)
+    } else {
+      g <- ggauto_density(var1 = var1, var2 = var2)
+    }
+    ylab <- NULL
   }
 
   # Not yet implemented

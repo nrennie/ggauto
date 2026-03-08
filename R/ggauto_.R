@@ -1,8 +1,17 @@
 #' @importFrom rlang .data
 #' @noRd
-ggauto_density <- function(var1) {
+ggauto_density <- function(var1, var2) {
+  if (is.null(var2)) {
+    p_data <- data.frame(x = var1, y = "")
+  } else {
+    p_data <- data.frame(x = var2, y = var1)
+    if (is.character(var2)) {
+      p_data <- p_data |>
+        dplyr::mutate(x = reorder(var1, var2, FUN = median))
+    }
+  }
   ggplot2::ggplot(
-    data = data.frame(x = var1, y = ""),
+    data = p_data,
     mapping = ggplot2::aes(x = .data$x, y = .data$y)
   ) +
     ggdist::stat_slab(
@@ -13,8 +22,33 @@ ggauto_density <- function(var1) {
       side = "bottom",
       fill = khroma::colour("bright")(1)[1], , scale = 0.7
     ) +
-    auto_x_axis(var1)
+    ggplot2::scale_y_discrete(limits = rev) +
+    auto_x_axis(p_data$x)
 }
+
+#' @noRd
+ggauto_bar <- function(var1, var2) {
+  if (is.null(var2)) {
+    p_data <- data.frame(x = var1) |>
+      dplyr::count(x) |>
+      dplyr::rename(Count = n)
+  } else {
+    p_data <- data.frame(x = var1, Count = var2)
+  }
+  if (is.character(var1)) {
+    p_data <- p_data |>
+      dplyr::mutate(x = reorder(x, -Count))
+  }
+  g <- ggplot2::ggplot(
+    data = p_data,
+    mapping = ggplot2::aes(x = .data$x, y = .data$Count)
+  ) +
+    ggplot2::geom_col(fill = khroma::colour("bright")(1)[1]) +
+    ggplot2::scale_x_discrete(limits = rev) +
+    ggplot2::coord_flip(expand = FALSE, clip = "off")
+  return(g)
+}
+
 
 #' @noRd
 ggauto_scatter <- function(var1, var2) {

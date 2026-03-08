@@ -62,8 +62,8 @@ The available data types are based on the `scale_x/y_` options in
 | Continuous | \- | \- | Raincloud plot | Yes |
 | Continuous | Continuous | \- | Scatter plot | Yes |
 | Continuous | Continuous | Discrete | Scatter plot with coloured shapes | Yes |
-| Discrete | \- | \- | Bar chart (showing count of categories) | Not yet |
-| Discrete | Continuous | \- | Bar chart (if one value per category) or raincloud plot (if multiple values per category) | Not yet |
+| Discrete | \- | \- | Bar chart (showing count of categories) | Yes |
+| Discrete | Continuous | \- | Bar chart (if one value per category) or raincloud plot (if multiple values per category) | Yes |
 | Discrete | Discrete | \- | Heatmap (showing count of category combinations) | Not yet |
 | Discrete | Discrete | Continuous | Heatmap (showing continuous variable) | Not yet |
 | Date | Continuous | \- | Line chart | Yes |
@@ -227,3 +227,56 @@ ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
 #> Error in `ggauto()`:
 #> ! You cannot use more than 6 colours.
 ```
+
+## One discrete variable
+
+If a `character` variable, will be sorted highest to lowest:
+
+``` r
+set.seed(123)
+plot_data <- data.frame(
+  v1 = sample(LETTERS[1:6], 20, replace = TRUE)
+)
+ggauto(plot_data$v1)
+```
+
+<img src="man/figures/README-unnamed-chunk-14-1.png" alt="" width="100%" />
+
+If a `factor` variable, the order is respected:
+
+``` r
+plot_data$v1 <-factor(plot_data$v1, levels = LETTERS[1:6])
+ggauto(plot_data$v1)
+```
+
+<img src="man/figures/README-unnamed-chunk-15-1.png" alt="" width="100%" />
+
+## One discrete variable, one continuous variable
+
+If only one continuous value for each discrete variable, a bar chart is
+created e.g. if you’ve pre-computed the counts:
+
+``` r
+set.seed(123)
+plot_data <- data.frame(
+  v1 = LETTERS[1:6],
+  v2 = rpois(6, 6)
+)
+ggauto(plot_data$v1, plot_data$v2)
+```
+
+<img src="man/figures/README-unnamed-chunk-16-1.png" alt="" width="100%" />
+
+If multiple continuous values for each discrete variable, a raincloud
+plot is created:
+
+``` r
+set.seed(123)
+plot_data <- data.frame(
+  v1 = rep(LETTERS[1:3], each = 25),
+  v2 = rnorm(75)
+)
+ggauto(plot_data$v1, plot_data$v2)
+```
+
+<img src="man/figures/README-unnamed-chunk-17-1.png" alt="" width="100%" />

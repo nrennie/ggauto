@@ -51,7 +51,7 @@ theme_auto <- function(base_size = 14, base_family = "sans") {
       ),
       plot.title.position = "plot",
       plot.caption.position = "plot",
-      plot.margin = ggplot2::margin(5, 10, 5, 5),
+      plot.margin = ggplot2::margin(5, 15, 5, 5),
       plot.background = ggplot2::element_rect(
         fill = "white", colour = "white"
       ),
