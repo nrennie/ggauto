@@ -10,6 +10,7 @@ ggauto(
   var1 = NULL,
   var2 = NULL,
   var3 = NULL,
+  data = NULL,
   xlab = "x",
   ylab = "y",
   title = NULL,
@@ -24,7 +25,9 @@ ggauto(
 
 - var1:
 
-  First variable.
+  First variable. Either vector (for example `plot_data$v1`), or quoted
+  character string with a column name (for example `"v1"`) when passing
+  in data.
 
 - var2:
 
@@ -33,6 +36,10 @@ ggauto(
 - var3:
 
   Optional third variable.
+
+- data:
+
+  Optional data frame to get variables from.
 
 - xlab:
 

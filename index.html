@@ -365,6 +365,15 @@
 <code class="sourceCode R"><span><span class="va">plot_data</span><span class="op">$</span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">plot_data</span><span class="op">$</span><span class="va">v1</span>, levels <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">13</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">plot_data</span><span class="op">$</span><span class="va">v1</span>, <span class="va">plot_data</span><span class="op">$</span><span class="va">v2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-20-1.png" alt="" width="100%"></p>
+<p>You can also pass in column names and the data directly into <code>data</code>:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="st">"v1"</span>, <span class="st">"v2"</span>, data <span class="op">=</span> <span class="va">plot_data</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-21-1.png" alt="" width="100%"></p>
+<p>Or using the pipe:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plot_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="st">"v1"</span>, <span class="st">"v2"</span>, data <span class="op">=</span> <span class="va">_</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-22-1.png" alt="" width="100%"></p>
 </div>
 </div>
 

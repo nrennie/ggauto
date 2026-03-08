@@ -317,6 +317,23 @@ ggauto(plot_data$v1, plot_data$v2)
 
 ![](reference/figures/README-unnamed-chunk-20-1.png)
 
+You can also pass in column names and the data directly into `data`:
+
+``` r
+ggauto("v1", "v2", data = plot_data)
+```
+
+![](reference/figures/README-unnamed-chunk-21-1.png)
+
+Or using the pipe:
+
+``` r
+plot_data |> 
+  ggauto("v1", "v2", data = _)
+```
+
+![](reference/figures/README-unnamed-chunk-22-1.png)
+
 # Package index
 
 ## All functions

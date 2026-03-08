@@ -47,6 +47,7 @@ classes of the provided variables.</p>
 <span>  var1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  var2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  var3 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"x"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"y"</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -62,7 +63,7 @@ classes of the provided variables.</p>
 
 
 <dl><dt id="arg-var-">var1<a class="anchor" aria-label="anchor" href="#arg-var-"></a></dt>
-<dd><p>First variable.</p></dd>
+<dd><p>First variable. Either vector (for example <code>plot_data$v1</code>), or quoted character string with a column name (for example <code>"v1"</code>) when passing in data.</p></dd>
 
 
 <dt id="arg-var-">var2<a class="anchor" aria-label="anchor" href="#arg-var-"></a></dt>
@@ -71,6 +72,10 @@ classes of the provided variables.</p>
 
 <dt id="arg-var-">var3<a class="anchor" aria-label="anchor" href="#arg-var-"></a></dt>
 <dd><p>Optional third variable.</p></dd>
+
+
+<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
+<dd><p>Optional data frame to get variables from.</p></dd>
 
 
 <dt id="arg-xlab">xlab<a class="anchor" aria-label="anchor" href="#arg-xlab"></a></dt>
