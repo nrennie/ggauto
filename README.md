@@ -1,6 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/nrennie/ggauto/workflows/R-CMD-check/badge.svg)](https://github.com/nrennie/ggauto/actions)
+<!-- badges: end -->
+
 # ggauto <img src="man/figures/logo.png" align="right" width="120" />
 
 `ggauto` is an *opinionated* `ggplot2` extension package to
