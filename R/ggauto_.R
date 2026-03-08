@@ -132,3 +132,74 @@ ggauto_line_colour <- function(var1, var2, var3, base_size) {
     ggplot2::coord_cartesian(expand = FALSE, clip = "off")
   return(g)
 }
+
+#' @noRd
+ggauto_heatmap <- function(var1, var2, base_size) {
+  p_data <- data.frame(x = var1, y = var2) |>
+    dplyr::count(.data$x, .data$y) |>
+    dplyr::mutate(r = scales::rescale(.data$n, to = c(0.1, 0.48)))
+  if (is.character(var1)) {
+    p_data <- p_data |>
+      dplyr::mutate(x = stats::reorder(.data$x, .data$n,
+        FUN = sum
+      ))
+  }
+  if (is.character(var2)) {
+    p_data <- p_data |>
+      dplyr::mutate(y = stats::reorder(.data$y, -.data$n,
+        FUN = sum
+      ))
+  }
+  label_in_data <- p_data |>
+    dplyr::filter(.data$r > 0.24)
+  label_out_data <- p_data |>
+    dplyr::filter(.data$r <= 0.24)
+  g <- ggplot2::ggplot(
+    data = p_data
+  ) +
+    ggforce::geom_circle(
+      mapping = ggplot2::aes(
+        x0 = .data$x, y0 = .data$y,
+        r = .data$r,
+        fill = .data$n
+      )
+    ) +
+    ggplot2::scale_x_discrete() +
+    ggplot2::scale_y_discrete(limits = rev) +
+    ggplot2::coord_fixed(expand = FALSE, clip = "off")
+  if (length(unique(var1)) < 5 && length(unique(var2)) < 5) {
+    g <- g + ggplot2::geom_text(
+      data = label_in_data,
+      mapping = ggplot2::aes(
+        x = .data$x, y = .data$y,
+        label = .data$n,
+        colour = (.data$r) > 0.42
+      ),
+      size = 1.1 * base_size * 0.3528
+    ) +
+      ggplot2::geom_text(
+        data = label_out_data,
+        mapping = ggplot2::aes(
+          x = .data$x, y = .data$y,
+          label = .data$n
+        ),
+        nudge_y = -0.28,
+        size = 1.1 * base_size * 0.3528
+      ) +
+      ggplot2::scale_colour_manual(
+        values = c("black", "white"),
+        guide = "none"
+      ) +
+      ggplot2::scale_fill_binned(
+        palette = "YlGnBu",
+        type = "seq",
+        guide = "none"
+      )
+  } else {
+    g <- g + ggplot2::scale_fill_binned(
+      palette = "YlGnBu",
+      type = "seq"
+    )
+  }
+  return(g)
+}

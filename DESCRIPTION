@@ -12,6 +12,7 @@ Depends:
 Imports:
     dplyr,
     ggdist,
+    ggforce,
     ggplot2,
     ggrepel,
     ggtext,
@@ -19,7 +20,8 @@ Imports:
     khroma,
     lemon,
     lubridate,
-    rlang
+    rlang,
+    scales
 Suggests: 
     knitr,
     rmarkdown

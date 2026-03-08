@@ -53,6 +53,7 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
     is.numeric(var2) &&
     is.null(var3)) {
     g <- ggauto_line(var1 = var1, var2 = var2, base_size = base_size)
+    xlab <- NULL
   }
   # One date var, one continuous var, one discrete var -> coloured line chart
   else if (lubridate::is.Date(var1) &&
@@ -65,6 +66,7 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
         var1 = var1, var2 = var2, var3 = var3,
         base_size = base_size
       )
+      xlab <- NULL
     }
   }
   # One discrete var -> bar plot
@@ -83,6 +85,14 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
     } else {
       g <- ggauto_density(var1 = var1, var2 = var2)
     }
+    ylab <- NULL
+  }
+  # Two discrete var -> heatmap plot
+  else if ((is.character(var1) || is.factor(var1)) &&
+    (is.character(var2) || is.factor(var2)) &&
+    is.null(var3)) {
+    g <- ggauto_heatmap(var1 = var1, var2 = var2, base_size = base_size)
+    xlab <- NULL
     ylab <- NULL
   }
 
