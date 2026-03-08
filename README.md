@@ -18,6 +18,12 @@ and values in the data.
 > but stylistic changes that are personal preferences will not be
 > addressed.
 
+This package is built on the philosophy that data wrangling and plotting
+are separate parts of the process of building a chart. Tasks like
+ordering data, converting to correct date formats, or computing summary
+statistics should generally be performed before passing into a plotting
+function.
+
 In terms of styling, the defaults differ from `ggplot2` in the following
 ways:
 
@@ -32,6 +38,8 @@ ways:
 - Symmetric `y` axis, when `0` is included in the data (for some chart
   types), to enable comparison.
 - Errors when users try to make *spaghetti* line charts.
+- Unless a factor where a specific order is defined, categorical
+  variables are arranged by magnitude instead of alphabetically.
 
 ## Installation
 
