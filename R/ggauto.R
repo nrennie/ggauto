@@ -3,12 +3,8 @@
 #' Automatically create an appropriate ggplot2 chart type based on the
 #' classes of the provided variables.
 #'
-#' @param var1 First variable. Either vector (for example \code{plot_data$v1}),
-#' or quoted character string with a column name (for example \code{"v1"})
-#' when passing in data.
-#' @param var2 Optional second variable.
-#' @param var3 Optional third variable.
-#' @param data Optional data frame to get variables from.
+#' @param data A data frame, or a bare vector when not using the pipe.
+#' @param ... Unquoted column names to plot (e.g. \code{v1, v2}).
 #' @param xlab Label for the x-axis.
 #' @param ylab Label for the y-axis.
 #' @param title Optional plot title.
@@ -20,33 +16,46 @@
 #' @return A \code{ggplot2} plot object.
 #'
 #' @examples
-#' ggauto(var1 = mtcars$mpg)
+#' ggauto(mtcars$mpg)
+#' mtcars |> ggauto(mpg, wt)
 #'
 #' @export
-ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
-                   data = NULL,
+ggauto <- function(data = NULL,
+                   ...,
                    xlab = NULL, ylab = NULL,
                    title = NULL, subtitle = NULL, caption = NULL,
                    base_size = 14, base_family = "sans") {
-  # Get data
-  if (!is.null(data)) {
-    if (!is.null(var1)) {
-      var1_name <- var1
-      var1 <- data[[var1]]
-    }
-    if (!is.null(var2)) {
-      var2_name <- var2
-      var2 <- data[[var2]]
-    }
-    if (!is.null(var3)) {
-      var3_name <- var3
-      var3 <- data[[var3]]
-    }
+  dots <- rlang::ensyms(...)
+  col_names <- lapply(dots, as.character)
+
+  if (is.data.frame(data)) {
+    var1 <- if (length(col_names) >= 1) data[[col_names[[1]]]] else NULL
+    var2 <- if (length(col_names) >= 2) data[[col_names[[2]]]] else NULL
+    var3 <- if (length(col_names) >= 3) data[[col_names[[3]]]] else NULL
+
+    var1_name <- if (length(col_names) >= 1) col_names[[1]] else NULL
+    var2_name <- if (length(col_names) >= 2) col_names[[2]] else NULL
+    var3_name <- if (length(col_names) >= 3) col_names[[3]] else NULL # nolint
   } else {
-    var1_name <- get_col_name(substitute(var1))
-    var2_name <- get_col_name(substitute(var2))
-    var3_name <- get_col_name(substitute(var3))
+    data_expr <- substitute(data)
+    all_dots <- c(list(data_expr), lapply(dots, function(d) d))
+    var1 <- if (length(all_dots) >= 1) eval(all_dots[[1]], envir = parent.frame()) else NULL
+    var2 <- if (length(all_dots) >= 2) eval(all_dots[[2]], envir = parent.frame()) else NULL
+    var3 <- if (length(all_dots) >= 3) eval(all_dots[[3]], envir = parent.frame()) else NULL
+
+    get_name <- function(expr) {
+      if (is.call(expr) && identical(expr[[1]], as.name("$"))) {
+        as.character(expr[[3]]) # right-hand side of $
+      } else {
+        deparse(expr)
+      }
+    }
+
+    var1_name <- if (length(all_dots) >= 1) get_name(all_dots[[1]]) else NULL
+    var2_name <- if (length(all_dots) >= 2) get_name(all_dots[[2]]) else NULL
+    var3_name <- if (length(all_dots) >= 3) get_name(all_dots[[3]]) else NULL
   }
+
   # One continuous var -> density plot
   if (is.numeric(var1) &&
     is.null(var2) &&
@@ -115,7 +124,8 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
     } else {
       g <- ggauto_line_colour(
         var1 = var1, var2 = var2, var3 = var3,
-        base_size = base_size
+        base_size = base_size,
+        base_family = base_family
       )
       xlab <- NULL
       if (is.null(ylab)) {

@@ -5,12 +5,10 @@
 \title{Automatic ggplot plot}
 \usage{
 ggauto(
-  var1 = NULL,
-  var2 = NULL,
-  var3 = NULL,
   data = NULL,
-  xlab = "x",
-  ylab = "y",
+  ...,
+  xlab = NULL,
+  ylab = NULL,
   title = NULL,
   subtitle = NULL,
   caption = NULL,
@@ -19,19 +17,13 @@ ggauto(
 )
 }
 \arguments{
-\item{var1}{First variable. Either vector (for example \code{plot_data$v1}),
-or quoted character string with a column name (for example \code{"v1"})
-when passing in data.}
+\item{data}{A data frame, or a bare vector when not using the pipe.}
 
-\item{var2}{Optional second variable.}
+\item{...}{Unquoted column names to plot (e.g. \code{v1, v2}).}
 
-\item{var3}{Optional third variable.}
+\item{xlab}{Label for the x-axis.}
 
-\item{data}{Optional data frame to get variables from.}
-
-\item{xlab}{Label for the x-axis. Defaults to \code{"x"}.}
-
-\item{ylab}{Label for the y-axis. Defaults to \code{"y"}.}
+\item{ylab}{Label for the y-axis.}
 
 \item{title}{Optional plot title.}
 
@@ -51,6 +43,7 @@ Automatically create an appropriate ggplot2 chart type based on the
 classes of the provided variables.
 }
 \examples{
-ggauto(var1 = mtcars$mpg)
+ggauto(mtcars$mpg)
+mtcars |> ggauto(mpg, wt)
 
 }

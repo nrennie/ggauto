@@ -7,7 +7,7 @@ ggauto_density <- function(var1, var2) {
     p_data <- data.frame(x = var2, y = var1)
     if (is.character(p_data$y)) {
       p_data <- p_data |>
-        dplyr::mutate(y = stringr::str_wrap(stats::reorder(y, x,
+        dplyr::mutate(y = stringr::str_wrap(stats::reorder(.data$y, .data$x,
           FUN = stats::median
         ), 20))
     }
@@ -118,7 +118,7 @@ ggauto_line <- function(var1, var2, base_size) {
 }
 
 #' @noRd
-ggauto_line_colour <- function(var1, var2, var3, base_size) {
+ggauto_line_colour <- function(var1, var2, var3, base_size, base_family) {
   p_data <- data.frame(x = var1, y = var2, z = var3)
   last_date <- p_data |>
     dplyr::group_by(.data$z) |>
@@ -131,10 +131,10 @@ ggauto_line_colour <- function(var1, var2, var3, base_size) {
     )
   ) +
     auto_zero_line(var2) +
-    ggplot2::scale_x_date(expand = expansion(mult = c(0, 0.2))) +
+    ggplot2::scale_x_date(expand = ggplot2::expansion(mult = c(0, 0.2))) +
     ggplot2::scale_y_continuous(
       labels = scales::comma,
-      expand = expansion(0, 0)
+      expand = ggplot2::expansion(0, 0)
     ) +
     ggplot2::geom_line(
       show.legend = FALSE,
@@ -150,6 +150,7 @@ ggauto_line_colour <- function(var1, var2, var3, base_size) {
       mapping = ggplot2::aes(label = .data$z),
       show.legend = FALSE,
       fontface = "bold",
+      family = base_family,
       direction = "y",
       hjust = 0,
       box.padding = 0.5,
