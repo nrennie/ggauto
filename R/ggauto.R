@@ -76,7 +76,11 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
     is.numeric(var2) &&
     (is.character(var3) || is.factor(var3))) {
     if (length(unique(var3)) > 6) {
-      stop("You cannot use more than 6 colours.")
+      g <- ggauto_line_facet(
+        var1 = var1, var2 = var2, var3 = var3,
+        base_size = base_size
+      )
+      xlab <- NULL
     } else {
       g <- ggauto_line_colour(
         var1 = var1, var2 = var2, var3 = var3,

@@ -62,6 +62,10 @@ theme_auto <- function(base_size = 14, base_family = "sans") {
       axis.text.y = ggplot2::element_text(
         size = ggplot2::rel(1)
       ),
-      axis.title.y = ggplot2::element_blank()
+      axis.title.y = ggplot2::element_blank(),
+      strip.text.x = ggtext::element_textbox_simple(
+        hjust = 0, halign = 0, face = "bold"
+      ),
+      panel.spacing = ggplot2::unit(0.8, "lines")
     )
 }

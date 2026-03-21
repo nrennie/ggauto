@@ -162,6 +162,19 @@ plot_data <- data.frame(
 ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
 ```
 
+If you try to use more than 6 colours (categories), an error will be returned. Future iterations of this package may automatically use small multiples (facets) in this situation.
+
+
+```{r, error=TRUE}
+set.seed(123)
+plot_data <- data.frame(
+  v1 = runif(20),
+  v2 = runif(20, -5, 5),
+  v3 = sample(LETTERS[1:7], 20, replace = TRUE)
+)
+ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
+```
+
 ### One date variable, one continuous variable
 
 ```{r}
@@ -198,7 +211,7 @@ ggauto(plot_data$v1, plot_data$v2, plot_data$v3) +
   ))
 ```
 
-If you try to use more than 6 colours, an error will be returned. Future iterations of this package may automatically use small multiples (facets) in this situation.
+If you try to use more than 6 categories for `var3`, the plot type changes to a faceted line chart, with one category highlighted on each facet.
 
 ```{r, error=TRUE}
 set.seed(123)
@@ -229,7 +242,7 @@ ggauto(plot_data$v1)
 If a `factor` variable, the order is respected:
 
 ```{r}
-plot_data$v1 <-factor(plot_data$v1, levels = LETTERS[1:6])
+plot_data$v1 <- factor(plot_data$v1, levels = LETTERS[1:6])
 ggauto(plot_data$v1)
 ```
 
@@ -297,7 +310,7 @@ ggauto("v1", "v2", data = plot_data)
 Or using the pipe:
 
 ```{r}
-plot_data |> 
+plot_data |>
   ggauto("v1", "v2", data = _)
 ```
 
@@ -326,4 +339,3 @@ plot_data <- data.frame(
 )
 ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
 ```
-

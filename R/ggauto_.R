@@ -134,6 +134,32 @@ ggauto_line_colour <- function(var1, var2, var3, base_size) {
 }
 
 #' @noRd
+ggauto_line_facet <- function(var1, var2, var3, base_size) {
+  p_data <- data.frame(x = var1, y = var2, z = var3)
+  last_date <- p_data |>
+    dplyr::group_by(.data$z) |>
+    dplyr::slice_max(.data$x)
+  n_cat <- length(unique(var3))
+  g <- ggplot2::ggplot(
+    data = p_data,
+    mapping = ggplot2::aes(
+      x = .data$x, y = .data$y,
+      colour = .data$z
+    )
+  ) +
+    auto_zero_line(var2) +
+    ggplot2::geom_line(
+      show.legend = FALSE,
+      linewidth = 0.1 * base_size
+    ) +
+    ggplot2::scale_colour_manual(values = rep("black", n_cat)) +
+    gghighlight::gghighlight(use_direct_label = FALSE) +
+    ggplot2::facet_wrap(~ .data$z) +
+    ggplot2::coord_cartesian(expand = FALSE, clip = "off")
+  return(g)
+}
+
+#' @noRd
 ggauto_heatmap <- function(var1, var2, var3, base_size) {
   if (is.null(var3)) {
     p_data <- data.frame(x = var1, y = var2) |>

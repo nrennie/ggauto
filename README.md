@@ -185,6 +185,22 @@ ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" alt="" width="100%" />
 
+If you try to use more than 6 colours (categories), an error will be
+returned. Future iterations of this package may automatically use small
+multiples (facets) in this situation.
+
+``` r
+set.seed(123)
+plot_data <- data.frame(
+  v1 = runif(20),
+  v2 = runif(20, -5, 5),
+  v3 = sample(LETTERS[1:7], 20, replace = TRUE)
+)
+ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
+#> Error in `ggauto()`:
+#> ! You cannot use more than 6 colours.
+```
+
 ### One date variable, one continuous variable
 
 ``` r
@@ -200,7 +216,7 @@ plot_data <- data.frame(
 ggauto(plot_data$v1, plot_data$v2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" alt="" width="100%" />
 
 ### One date variable, one continuous variable, one discrete variable
 
@@ -225,11 +241,11 @@ ggauto(plot_data$v1, plot_data$v2, plot_data$v3) +
   ))
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-13-1.png" alt="" width="100%" />
 
-If you try to use more than 6 colours, an error will be returned. Future
-iterations of this package may automatically use small multiples
-(facets) in this situation.
+If you try to use more than 6 categories for `var3`, the plot type
+changes to a faceted line chart, with one category highlighted on each
+facet.
 
 ``` r
 set.seed(123)
@@ -259,16 +275,16 @@ plot_data <- data.frame(
 ggauto(plot_data$v1)
 ```
 
-<img src="man/figures/README-unnamed-chunk-14-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-15-1.png" alt="" width="100%" />
 
 If a `factor` variable, the order is respected:
 
 ``` r
-plot_data$v1 <-factor(plot_data$v1, levels = LETTERS[1:6])
+plot_data$v1 <- factor(plot_data$v1, levels = LETTERS[1:6])
 ggauto(plot_data$v1)
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-16-1.png" alt="" width="100%" />
 
 ## One discrete variable, one continuous variable
 
@@ -284,7 +300,7 @@ plot_data <- data.frame(
 ggauto(plot_data$v1, plot_data$v2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-16-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-17-1.png" alt="" width="100%" />
 
 If multiple continuous values for each discrete variable, a raincloud
 plot is created:
@@ -298,7 +314,7 @@ plot_data <- data.frame(
 ggauto(plot_data$v1, plot_data$v2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-17-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-18-1.png" alt="" width="100%" />
 
 ## Two discrete variables
 
@@ -314,7 +330,7 @@ plot_data <- data.frame(
 ggauto(plot_data$v1, plot_data$v2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-18-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-19-1.png" alt="" width="100%" />
 
 When there are many categories, labels are replaced with a legend:
 
@@ -327,7 +343,7 @@ plot_data <- data.frame(
 ggauto(plot_data$v1, plot_data$v2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-19-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-20-1.png" alt="" width="100%" />
 
 Again, if one or both of the discrete variables is a factor, then the
 order is respected:
@@ -337,7 +353,7 @@ plot_data$v1 <- factor(plot_data$v1, levels = LETTERS[1:13])
 ggauto(plot_data$v1, plot_data$v2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-20-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-21-1.png" alt="" width="100%" />
 
 You can also pass in column names and the data directly into `data`:
 
@@ -345,16 +361,16 @@ You can also pass in column names and the data directly into `data`:
 ggauto("v1", "v2", data = plot_data)
 ```
 
-<img src="man/figures/README-unnamed-chunk-21-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-22-1.png" alt="" width="100%" />
 
 Or using the pipe:
 
 ``` r
-plot_data |> 
+plot_data |>
   ggauto("v1", "v2", data = _)
 ```
 
-<img src="man/figures/README-unnamed-chunk-22-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-23-1.png" alt="" width="100%" />
 
 ## Two discrete variables, one continuous variable
 
@@ -371,7 +387,7 @@ plot_data <- data.frame(
 ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
 ```
 
-<img src="man/figures/README-unnamed-chunk-23-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-24-1.png" alt="" width="100%" />
 
 If there are multiple continuous values per combination of categories,
 and error is returned, asking you to first summarise the data:

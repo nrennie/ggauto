@@ -12,6 +12,7 @@ Imports:
     dplyr,
     ggdist,
     ggforce,
+    gghighlight,
     ggplot2,
     ggrepel,
     ggtext,
