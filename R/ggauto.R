@@ -72,18 +72,21 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
     is.numeric(var2) &&
     (is.character(var3) || is.factor(var3))) {
     if (length(unique(var3)) > 6) {
-      stop("You cannot use more than 6 colours.")
+      g <- ggauto_scatter_facet(
+        var1 = var1, var2 = var2,
+        var3 = var3, base_size = base_size
+      )
     } else {
       g <- ggauto_scatter_colour(
         var1 = var1, var2 = var2,
         var3 = var3, base_size = base_size
       )
-      if (is.null(xlab)) {
-        xlab <- clean_col_name(var1_name)
-      }
-      if (is.null(ylab)) {
-        ylab <- clean_col_name(var2_name)
-      }
+    }
+    if (is.null(xlab)) {
+      xlab <- clean_col_name(var1_name)
+    }
+    if (is.null(ylab)) {
+      ylab <- clean_col_name(var2_name)
     }
   }
   # One date var, one continuous -> line chart

@@ -85,6 +85,26 @@ ggauto_scatter_colour <- function(var1, var2, var3, base_size) {
 }
 
 #' @noRd
+ggauto_scatter_facet <- function(var1, var2, var3, base_size) {
+  n_cat <- length(unique(var3))
+  g <- ggplot2::ggplot(
+    data = data.frame(x = var1, y = var2, z = var3),
+    mapping = ggplot2::aes(
+      x = .data$x, y = .data$y,
+      colour = .data$z
+    )
+  ) +
+    auto_zero_line(var2) +
+    ggplot2::geom_point(size = 0.2 * base_size, show.legend = FALSE) +
+    ggplot2::scale_colour_manual(values = rep("black", n_cat)) +
+    gghighlight::gghighlight(use_direct_label = FALSE) +
+    ggplot2::facet_wrap(~.data$z) +
+    ggplot2::coord_cartesian(expand = FALSE, clip = "off") +
+    auto_y_axis(var2)
+  return(g)
+}
+
+#' @noRd
 ggauto_line <- function(var1, var2, base_size) {
   g <- ggplot2::ggplot(
     data = data.frame(x = var1, y = var2),

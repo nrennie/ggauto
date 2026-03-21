@@ -38,7 +38,7 @@ In terms of styling, the defaults differ from `ggplot2` in the following ways:
 * Colours that are more likely to be accessible, using [Paul Tol's palettes](https://sronpersonalpages.nl/~pault/).
 * Combined use of either shapes or direct labels alongside colour to improve accessibility.
 * Symmetric `y` axis, when `0` is included in the data (for some chart types), to enable comparison.
-* Errors when users try to make *spaghetti* line charts.
+* Different chart types when users try to make *spaghetti* line charts.
 * Unless a factor where a specific order is defined, categorical variables are arranged by magnitude instead of alphabetically.
 
 ## Installation
@@ -250,7 +250,7 @@ mpg |>
   ggauto("displ", "hwy", data = _)
 ```
 
-To show the correlation between **two continuous variables**, split by a third **discrete** variable:
+To show the correlation between **two continuous variables**, split by a third **discrete** variable, a scatter plot using colours and shapes is created:
 
 ```{r}
 mpg |> 
@@ -258,9 +258,9 @@ mpg |>
   ggauto("displ", "hwy", "cyl", data = _)
 ```
 
-If you try to use more than 6 colours (categories), an error will be returned. Future iterations of this package may automatically use small multiples (facets) in this situation.
+If you try to use more than 6 colours (categories), the chart type changes to a faceted scatter plot with one category highlighted on each facet:
 
-```{r, error=TRUE}
+```{r}
 mpg |> 
   dplyr::mutate(cyl = as.factor(cyl)) |> 
   ggauto("displ", "hwy", "manufacturer", data = _)
