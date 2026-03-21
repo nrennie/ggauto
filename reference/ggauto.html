@@ -44,12 +44,10 @@ classes of the provided variables.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggauto</span><span class="op">(</span></span>
-<span>  var1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  var2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  var3 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  xlab <span class="op">=</span> <span class="st">"x"</span>,</span>
-<span>  ylab <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -62,28 +60,20 @@ classes of the provided variables.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-var-">var1<a class="anchor" aria-label="anchor" href="#arg-var-"></a></dt>
-<dd><p>First variable. Either vector (for example <code>plot_data$v1</code>), or quoted character string with a column name (for example <code>"v1"</code>) when passing in data.</p></dd>
+<dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
+<dd><p>A data frame, or a bare vector when not using the pipe.</p></dd>
 
 
-<dt id="arg-var-">var2<a class="anchor" aria-label="anchor" href="#arg-var-"></a></dt>
-<dd><p>Optional second variable.</p></dd>
-
-
-<dt id="arg-var-">var3<a class="anchor" aria-label="anchor" href="#arg-var-"></a></dt>
-<dd><p>Optional third variable.</p></dd>
-
-
-<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>Optional data frame to get variables from.</p></dd>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Unquoted column names to plot (e.g. <code>v1, v2</code>).</p></dd>
 
 
 <dt id="arg-xlab">xlab<a class="anchor" aria-label="anchor" href="#arg-xlab"></a></dt>
-<dd><p>Label for the x-axis. Defaults to <code>"x"</code>.</p></dd>
+<dd><p>Label for the x-axis.</p></dd>
 
 
 <dt id="arg-ylab">ylab<a class="anchor" aria-label="anchor" href="#arg-ylab"></a></dt>
-<dd><p>Label for the y-axis. Defaults to <code>"y"</code>.</p></dd>
+<dd><p>Label for the y-axis.</p></dd>
 
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
@@ -113,8 +103,10 @@ classes of the provided variables.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">ggauto</span><span class="op">(</span>var1 <span class="op">=</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">ggauto</span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggauto-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu">ggauto</span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="ggauto-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

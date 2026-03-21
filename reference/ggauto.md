@@ -7,12 +7,10 @@ classes of the provided variables.
 
 ``` r
 ggauto(
-  var1 = NULL,
-  var2 = NULL,
-  var3 = NULL,
   data = NULL,
-  xlab = "x",
-  ylab = "y",
+  ...,
+  xlab = NULL,
+  ylab = NULL,
   title = NULL,
   subtitle = NULL,
   caption = NULL,
@@ -23,31 +21,21 @@ ggauto(
 
 ## Arguments
 
-- var1:
-
-  First variable. Either vector (for example `plot_data$v1`), or quoted
-  character string with a column name (for example `"v1"`) when passing
-  in data.
-
-- var2:
-
-  Optional second variable.
-
-- var3:
-
-  Optional third variable.
-
 - data:
 
-  Optional data frame to get variables from.
+  A data frame, or a bare vector when not using the pipe.
+
+- ...:
+
+  Unquoted column names to plot (e.g. `v1, v2`).
 
 - xlab:
 
-  Label for the x-axis. Defaults to `"x"`.
+  Label for the x-axis.
 
 - ylab:
 
-  Label for the y-axis. Defaults to `"y"`.
+  Label for the y-axis.
 
 - title:
 
@@ -76,6 +64,8 @@ A `ggplot2` plot object.
 ## Examples
 
 ``` r
-ggauto(var1 = mtcars$mpg)
+ggauto(mtcars$mpg)
+
+mtcars |> ggauto(mpg, wt)
 
 ```
