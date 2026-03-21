@@ -31,13 +31,20 @@ In terms of styling, the defaults differ from `ggplot2` in the following ways:
 * The use of a white background to improve contrast.
 * Larger text which is aligned horizontally to improve readability.
 * Improved styling for title and subtitle, including automatic text wrapping for long text.
-* Colours that are more likely to be accessible, using [Paul Tol's palettes](https://cran.r-project.org/web/packages/khroma/vignettes/tol.html).
+* Colours that are more likely to be accessible, using [Paul Tol's palettes](https://sronpersonalpages.nl/~pault/).
 * Combined use of either shapes or direct labels alongside colour to improve accessibility.
 * Symmetric `y` axis, when `0` is included in the data (for some chart types), to enable comparison.
 * Errors when users try to make *spaghetti* line charts.
 * Unless a factor where a specific order is defined, categorical variables are arranged by magnitude instead of alphabetically.
 
 ## Installation
+
+Install from CRAN:
+
+``` r
+install.packages("ggauto")
+```
+
 
 You can install the development version of `ggauto` from [GitHub](https://github.com/nrennie/ggauto) with:
 

@@ -32,7 +32,7 @@ ways:
 - Improved styling for title and subtitle, including automatic text
   wrapping for long text.
 - Colours that are more likely to be accessible, using [Paul Tol’s
-  palettes](https://cran.r-project.org/web/packages/khroma/vignettes/tol.html).
+  palettes](https://sronpersonalpages.nl/~pault/).
 - Combined use of either shapes or direct labels alongside colour to
   improve accessibility.
 - Symmetric `y` axis, when `0` is included in the data (for some chart
@@ -42,6 +42,12 @@ ways:
   variables are arranged by magnitude instead of alphabetically.
 
 ## Installation
+
+Install from CRAN:
+
+``` r
+install.packages("ggauto")
+```
 
 You can install the development version of `ggauto` from
 [GitHub](https://github.com/nrennie/ggauto) with:

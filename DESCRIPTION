@@ -1,11 +1,10 @@
 Package: ggauto
-Title: Automatically create and style 'ggplot2' charts
+Title: Automatically Create and Style 'ggplot2' Charts
 Version: 0.0.1
 Authors@R: 
-    person("Nicola", "Rennie", , "nrennie.research@gmail.com", role = c("aut", "cre"))
-Description: `ggauto` is an *opinionated* `ggplot2` extension package to
-    automatically choose the best chart type and styling, based on the
-    types and values in the data.
+    person("Nicola", "Rennie", , "nrennie.research@gmail.com", role = c("aut", "cre", "cph"))
+Description: Automatically choose an appropriate chart type based on the
+    types and values in the data. Apply more accessible default styling and colours to 'ggplot2' charts.
 License: MIT + file LICENSE
 Depends: 
     R (>= 4.1)
@@ -28,7 +27,6 @@ Suggests:
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-VignetteBuilder: knitr
 Config/Needs/website: nrennie/nrenniepkgdown
-URL: https://nrennie.github.io/ggauto/, http://nrennie.rbind.io/ggauto/
+URL: https://nrennie.rbind.io/ggauto/, http://nrennie.rbind.io/ggauto/
 BugReports: https://github.com/nrennie/ggauto/issues

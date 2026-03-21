@@ -7,3 +7,4 @@ README.Rmd
 ^docs$
 ^pkgdown$
 ^\.github$
+^cran-comments\.md$
