@@ -3,9 +3,9 @@ auto_y_axis <- function(data) {
   min_value <- min(data, na.rm = TRUE)
   max_value <- max(data, na.rm = TRUE)
   if (min_value < 0 && max_value > 0) {
-    lemon::scale_y_symmetric()
+    lemon::scale_y_symmetric(labels = scales::comma)
   } else {
-    ggplot2::scale_y_continuous()
+    ggplot2::scale_y_continuous(labels = scales::comma)
   }
 }
 
@@ -14,9 +14,9 @@ auto_x_axis <- function(data) {
   min_value <- min(data, na.rm = TRUE)
   max_value <- max(data, na.rm = TRUE)
   if (min_value < 0 && max_value > 0) {
-    lemon::scale_x_symmetric()
+    lemon::scale_x_symmetric(labels = scales::comma)
   } else {
-    ggplot2::scale_x_continuous()
+    ggplot2::scale_x_continuous(labels = scales::comma)
   }
 }
 
@@ -30,6 +30,25 @@ auto_zero_line <- function(data) {
       linewidth = 0.8
     )
   }
+}
+
+#' @noRd
+get_col_name <- function(col) {
+  if (is.null(col)) {
+    output <- NULL
+  } else {
+    col_name <- deparse(col)
+    output <- sub(".*\\$", "", col_name)
+  }
+  return(output)
+}
+
+#' @noRd
+clean_col_name <- function(str) {
+  output <- str |>
+    stringr::str_replace_all("_", " ") |>
+    stringr::str_to_sentence()
+  return(output)
 }
 
 #' @noRd
@@ -66,6 +85,6 @@ theme_auto <- function(base_size = 14, base_family = "sans") {
       strip.text.x = ggtext::element_textbox_simple(
         hjust = 0, halign = 0, face = "bold"
       ),
-      panel.spacing = ggplot2::unit(0.8, "lines")
+      panel.spacing = ggplot2::unit(1.5, "lines")
     )
 }

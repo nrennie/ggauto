@@ -19,7 +19,11 @@ knitr::opts_chunk$set(
 
 # ggauto <img src="man/figures/logo.png" align="right" width="120" />
 
-`ggauto` is an *opinionated* `ggplot2` extension package to automatically choose the best chart type and styling, based on the types and values in the data.
+`ggauto` is an *opinionated* `ggplot2` extension package to automatically choose the best chart type and styling, based on the types and values in the data. It's based on the following three principles:
+
+* There is no automatically perfect chart type for a given data type, but some are better than others.
+* Default styling for charts should improve clarity and be as accessible as possible.
+* Data pre-processing is a separate step to plotting, and you need to understand what your data is before you plot it.
 
 > [!WARNING]
 > If you don't like some (or all) of the opinionated choices in this package, make a fork and create your own version. Bug reports and/or fixes are extremely welcome for things that don't work, but stylistic changes that are personal preferences will not be addressed.
@@ -45,7 +49,6 @@ Install from CRAN:
 install.packages("ggauto")
 ```
 
-
 You can install the development version of `ggauto` from [GitHub](https://github.com/nrennie/ggauto) with:
 
 ``` r
@@ -70,6 +73,8 @@ The available data types are based on the `scale_x/y_` options in `ggplot2`:
 * Discrete (categorical)
 * Date (including time and datetime)
 
+This package assumes that you have correctly pre-processed your data i.e. is based on the assumption that you understand what the columns in your data are before you try to plot it. This means that if, for example, you have data for years encoded as numeric `2021` or `"2021"`, you would convert it to a date object before plotting. The package also assumes that all data is in long format.
+
 ### Chart types
 
 | var1       | var2       | var3       | Chart Type                                                                                | Implemented |
@@ -86,7 +91,15 @@ The available data types are based on the `scale_x/y_` options in `ggplot2`:
 
 ## Examples
 
-### One continuous variable
+We'll be using some of the built-in datasets from `ggplot2` in these examples, so we'll load the package here:
+
+```{r, warning=FALSE}
+library(ggplot2)
+```
+
+### Visualising distributions
+
+If you have only **continuous variable** and you want to visualise the distribution, for example: 
 
 ```{r}
 set.seed(123)
@@ -95,18 +108,177 @@ plot_data <- data.frame(
 )
 ```
 
-Pass columns of the data in as vectors:
+You can pass the column of data in as vectors:
 
 ```{r}
 ggauto(plot_data$v1)
 ```
 
-Note the symmetric x-axis, which is added then 0 exists in the range of x values. Since the output of `ggauto()` is simply a `ggplot2` chart, you can override this if you don't want it:
+You can also pass in column names and the data directly into `data`:
 
-```{r, warning=FALSE}
-library(ggplot2)
+```{r}
+ggauto("v1", data = plot_data)
 ```
 
+Or using the pipe:
+
+```{r}
+plot_data |>
+  ggauto("v1", data = _)
+```
+
+If you have multiple categories, and you want to visualise the distribution for each of them, i.e., you have **one discrete variable, and one continuous variable**, then multiple raincloud plots are produced.
+
+```{r}
+penguins |>
+  dplyr::filter(species == "Adelie") |>
+  ggauto("island", "flipper_len", data = _)
+```
+
+### Visualising data over time
+
+If you have a single variable to show over time, i.e., **one date variable, and one continuous variable**: 
+
+```{r}
+economics_long |>
+  dplyr::filter(variable == "unemploy") |>
+  ggauto("date", "value", data = _)
+```
+
+a line chart is produced.
+
+If you need to show how multiple variables change over time, i.e., **one date variable, continuous variable, and one discrete variable**, the type of chart will depend on how many categories (unique values in the discrete variable) you have. 
+
+If you have 6 or fewer categories, a multi-line chart is created, with colours and symbols identifying the categories. Category labels are added at the end of each line automatically.
+
+```{r}
+txhousing |>
+  dplyr::filter(city %in% c("Houston", "Fort Worth", "San Antonio", "Austin")) |>
+  dplyr::mutate(date = lubridate::ymd(paste0(year, "/", month, "/01"))) |>
+  ggauto("date", "sales", "city", data = _)
+```
+
+If you have more than 6 categories, the plot type changes to a faceted line chart, with one category highlighted on each facet:
+
+```{r}
+txhousing |>
+  dplyr::filter(city %in% c(
+    "Houston", "Fort Worth", "San Antonio", "Austin",
+    "Bay Area", "Dallas", "Paris", "San Angelo"
+  )) |>
+  dplyr::mutate(date = lubridate::ymd(paste0(year, "/", month, "/01"))) |>
+  ggauto("date", "sales", "city", data = _)
+```
+
+### Visualising magnitudes and ranks
+
+If you have a single discrete variable, a bar chart showing the counts of each category is created:
+
+```{r}
+diamonds |>
+  ggauto("cut", data = _)
+```
+
+If you have pre-computed the counts or some other summary statistics, i.e., if you have **one discrete variable, and one continuous variable** with only a single value for each discrete variable, a bar chart of the values is created: 
+
+```{r}
+diamonds |>
+  dplyr::group_by(cut) |>
+  dplyr::summarise(med_price = median(price)) |>
+  ggauto("cut", "med_price", data = _)
+```
+
+As you can see, when the discrete variable is a factor (i.e. `cut`), the desired order is respected. If the discrete variable is not a factor, the bars are ordered from highest to lowest instead of the default alphabetical ordering:
+
+```{r}
+diamonds |>
+  dplyr::group_by(cut) |>
+  dplyr::summarise(med_price = median(price)) |>
+  dplyr::mutate(cut = as.character(cut)) |>
+  ggauto("cut", "med_price", data = _)
+```
+
+If you have **two discrete variables**, then a heatmap is created showing the count of each combination of categories. Labels are added showing the count.
+
+```{r}
+mpg |> 
+  dplyr::mutate(cyl = as.character(cyl)) |> 
+  ggauto("cyl", "drv", data = _)
+```
+
+If there are more than 6 categories on either axis, labels are replaced with a legend:
+
+```{r}
+mpg |> 
+  dplyr::mutate(cyl = as.character(cyl)) |> 
+  ggauto("trans", "cyl", data = _)
+```
+
+Again, if one or both of the discrete variables is a factor, then the order is respected:
+
+```{r}
+mpg |> 
+  dplyr::mutate(cyl = as.factor(cyl)) |> 
+  ggauto("trans", "cyl", data = _)
+```
+
+If you have **two discrete variables** and a third **continuous variable** showing some summary statistic for each category combination, a heatmap showing that value is created. Labels are rounded to 2 decimal places.
+
+```{r}
+mpg |> 
+  dplyr::mutate(cyl = as.character(cyl)) |> 
+  dplyr::group_by(cyl, drv) |> 
+  dplyr::summarise(mean_hwy = mean(hwy)) |> 
+  dplyr::ungroup() |> 
+  ggauto("cyl", "drv", "mean_hwy", data = _)
+```
+
+If there are multiple continuous values per combination of categories, and error is returned, asking you to first summarise the data:
+
+```{r, error=TRUE}
+mpg |> 
+  dplyr::mutate(cyl = as.character(cyl)) |> 
+  ggauto("cyl", "drv", "hwy", data = _)
+```
+
+### Visualising correlation
+
+To show the correlation between **two continuous variables**:
+
+```{r}
+mpg |> 
+  ggauto("displ", "hwy", data = _)
+```
+
+To show the correlation between **two continuous variables**, split by a third **discrete** variable:
+
+```{r}
+mpg |> 
+  dplyr::mutate(cyl = as.factor(cyl)) |> 
+  ggauto("displ", "hwy", "cyl", data = _)
+```
+
+If you try to use more than 6 colours (categories), an error will be returned. Future iterations of this package may automatically use small multiples (facets) in this situation.
+
+```{r, error=TRUE}
+mpg |> 
+  dplyr::mutate(cyl = as.factor(cyl)) |> 
+  ggauto("displ", "hwy", "manufacturer", data = _)
+```
+
+
+## Editing charts
+
+### Scales
+
+For scatterplots, raincloud plots, and line charts, one or both of the axes may be symmetric about 0 by default. This happens automatically when 0 exists in the range of values. Since the output of `ggauto()` is simply a `ggplot2` chart, you can override this if you don't want it:
+
+```{r}
+set.seed(123)
+plot_data <- data.frame(
+  v1 = rnorm(50, 1)
+)
+```
 
 ```{r}
 ggauto(plot_data$v1) +
@@ -114,6 +286,10 @@ ggauto(plot_data$v1) +
 ```
 
 You'll get a warning to say you are replacing the existing scale which you can ignore because it's what you're trying to do!
+
+Similarly, you can edit the default colour/fill scales. However, the default palette is chosen to be accessible.
+
+### Text
 
 You can a title, subtitle, caption, and labels with the `labs()` function in `ggplot2` as you normally would, or directly using the same arguments in `ggauto()`. The latter is recommended as the arguments are used a little abnormally to implement the styling. You can add markdown formatting into the title, subtitle, or caption:
 
@@ -126,216 +302,8 @@ ggauto(plot_data$v1,
 )
 ```
 
+By default, the x or y axis title is removed on chart types e.g. where the axis is a date or category and a further label stating that is unnecessary. Unless otherwise specified, the axis labels are clean versions of the column names where it's parsed in sentence case, with underscores removed.
 
-### Two continuous variables
-
-Let's create a basic dataset with two continuous variables:
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = runif(20),
-  v2 = runif(20, -5, 5)
-)
-ggauto(plot_data$v1, plot_data$v2)
-```
-
-Compare to a basic, default scatter plot in `ggplot2`:
-
-```{r}
-ggplot(
-  data = plot_data,
-  mapping = aes(x = v1, y = v2)
-) +
-  geom_point()
-```
-
-### Two continuous variables, one discrete
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = runif(20),
-  v2 = runif(20, -5, 5),
-  v3 = sample(LETTERS[1:4], 20, replace = TRUE)
-)
-ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
-```
-
-If you try to use more than 6 colours (categories), an error will be returned. Future iterations of this package may automatically use small multiples (facets) in this situation.
+You can edit the size and family of the text using the `base_size` and `base_family` arguments. Other plot elements e.g. lines and points scale relative to the `base_size` as well.
 
 
-```{r, error=TRUE}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = runif(20),
-  v2 = runif(20, -5, 5),
-  v3 = sample(LETTERS[1:7], 20, replace = TRUE)
-)
-ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
-```
-
-### One date variable, one continuous variable
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = seq(
-    as.Date("01-01-2024", tryFormats = "%d-%m-%Y"),
-    as.Date("01-12-2024", tryFormats = "%d-%m-%Y"),
-    by = "months"
-  ),
-  v2 = runif(12, -5, 5)
-)
-ggauto(plot_data$v1, plot_data$v2)
-```
-
-### One date variable, one continuous variable, one discrete variable
-
-Category labels are added at the end of each line automatically. At the moment, you will need to manually adjust the x axis to make sure they fit in (depending on the length of your category labels).
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = rep(seq(
-    as.Date("01-01-2024", tryFormats = "%d-%m-%Y"),
-    as.Date("01-12-2024", tryFormats = "%d-%m-%Y"),
-    by = "months"
-  ), each = 4),
-  v2 = runif(48),
-  v3 = rep(LETTERS[1:4], times = 12)
-)
-ggauto(plot_data$v1, plot_data$v2, plot_data$v3) +
-  scale_x_date(limits = as.Date(c("01-01-2024", "31-12-2024"),
-    tryFormats = "%d-%m-%Y"
-  ))
-```
-
-If you try to use more than 6 categories for `var3`, the plot type changes to a faceted line chart, with one category highlighted on each facet.
-
-```{r, error=TRUE}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = rep(seq(
-    as.Date("01-01-2024", tryFormats = "%d-%m-%Y"),
-    as.Date("01-12-2024", tryFormats = "%d-%m-%Y"),
-    by = "months"
-  ), each = 7),
-  v2 = runif(84),
-  v3 = rep(LETTERS[1:7], times = 12)
-)
-ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
-```
-
-## One discrete variable
-
-If a `character` variable, will be sorted highest to lowest:
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = sample(LETTERS[1:6], 20, replace = TRUE)
-)
-ggauto(plot_data$v1)
-```
-
-If a `factor` variable, the order is respected:
-
-```{r}
-plot_data$v1 <- factor(plot_data$v1, levels = LETTERS[1:6])
-ggauto(plot_data$v1)
-```
-
-## One discrete variable, one continuous variable
-
-If only one continuous value for each discrete variable, a bar chart is created e.g. if you've pre-computed the counts:
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = LETTERS[1:6],
-  v2 = rpois(6, 6)
-)
-ggauto(plot_data$v1, plot_data$v2)
-```
-
-If multiple continuous values for each discrete variable, a raincloud plot is created:
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = rep(LETTERS[1:3], each = 25),
-  v2 = rnorm(75)
-)
-ggauto(plot_data$v1, plot_data$v2)
-```
-
-## Two discrete variables
-
-A heatmap is created showing the count of each combination of categories:
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = sample(LETTERS[1:3], 200, replace = TRUE),
-  v2 = sample(LETTERS[24:26], 200, replace = TRUE)
-)
-ggauto(plot_data$v1, plot_data$v2)
-```
-
-When there are many categories, labels are replaced with a legend:
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = sample(LETTERS[1:13], 200, replace = TRUE),
-  v2 = sample(LETTERS[14:26], 200, replace = TRUE)
-)
-ggauto(plot_data$v1, plot_data$v2)
-```
-
-Again, if one or both of the discrete variables is a factor, then the order is respected:
-
-```{r}
-plot_data$v1 <- factor(plot_data$v1, levels = LETTERS[1:13])
-ggauto(plot_data$v1, plot_data$v2)
-```
-
-You can also pass in column names and the data directly into `data`:
-
-```{r}
-ggauto("v1", "v2", data = plot_data)
-```
-
-Or using the pipe:
-
-```{r}
-plot_data |>
-  ggauto("v1", "v2", data = _)
-```
-
-## Two discrete variables, one continuous variable
-
-If there is only one continuous value per combination of categories, a heatmap is created:
-
-```{r}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = rep(LETTERS[1:3], each = 3),
-  v2 = rep(LETTERS[24:26], times = 3),
-  v3 = rpois(9, 6)
-)
-ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
-```
-
-If there are multiple continuous values per combination of categories, and error is returned, asking you to first summarise the data:
-
-```{r, error=TRUE}
-set.seed(123)
-plot_data <- data.frame(
-  v1 = rep(LETTERS[1:3], each = 30),
-  v2 = rep(LETTERS[24:26], times = 30),
-  v3 = rpois(900, 6)
-)
-ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
-```

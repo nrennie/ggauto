@@ -21,7 +21,8 @@ Imports:
     lemon,
     lubridate,
     rlang,
-    scales
+    scales,
+    stringr
 Suggests: 
     knitr,
     rmarkdown

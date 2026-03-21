@@ -259,9 +259,9 @@ plot_data <- data.frame(
   v3 = rep(LETTERS[1:7], times = 12)
 )
 ggauto(plot_data$v1, plot_data$v2, plot_data$v3)
-#> Error in `ggauto()`:
-#> ! You cannot use more than 6 colours.
 ```
+
+<img src="man/figures/README-unnamed-chunk-14-1.png" alt="" width="100%" />
 
 ## One discrete variable
 

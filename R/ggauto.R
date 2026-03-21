@@ -9,8 +9,8 @@
 #' @param var2 Optional second variable.
 #' @param var3 Optional third variable.
 #' @param data Optional data frame to get variables from.
-#' @param xlab Label for the x-axis. Defaults to \code{"x"}.
-#' @param ylab Label for the y-axis. Defaults to \code{"y"}.
+#' @param xlab Label for the x-axis.
+#' @param ylab Label for the y-axis.
 #' @param title Optional plot title.
 #' @param subtitle Optional plot subtitle.
 #' @param caption Optional plot caption.
@@ -25,31 +25,47 @@
 #' @export
 ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
                    data = NULL,
-                   xlab = "x", ylab = "y",
+                   xlab = NULL, ylab = NULL,
                    title = NULL, subtitle = NULL, caption = NULL,
                    base_size = 14, base_family = "sans") {
   # Get data
   if (!is.null(data)) {
     if (!is.null(var1)) {
+      var1_name <- var1
       var1 <- data[[var1]]
     }
     if (!is.null(var2)) {
+      var2_name <- var2
       var2 <- data[[var2]]
     }
     if (!is.null(var3)) {
+      var3_name <- var3
       var3 <- data[[var3]]
     }
+  } else {
+    var1_name <- get_col_name(substitute(var1))
+    var2_name <- get_col_name(substitute(var2))
+    var3_name <- get_col_name(substitute(var3))
   }
   # One continuous var -> density plot
   if (is.numeric(var1) &&
     is.null(var2) &&
     is.null(var3)) {
     g <- ggauto_density(var1 = var1, var2 = var2)
+    if (is.null(xlab)) {
+      xlab <- clean_col_name(var1_name)
+    }
     ylab <- NULL
   }
   # Two continuous var -> scatter plot
   else if (is.numeric(var1) && is.numeric(var2) && is.null(var3)) {
     g <- ggauto_scatter(var1 = var1, var2 = var2, base_size = base_size)
+    if (is.null(xlab)) {
+      xlab <- clean_col_name(var1_name)
+    }
+    if (is.null(ylab)) {
+      ylab <- clean_col_name(var2_name)
+    }
   }
   # Two continuous var, one discrete var -> coloured scatter plot
   else if (is.numeric(var1) &&
@@ -62,6 +78,12 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
         var1 = var1, var2 = var2,
         var3 = var3, base_size = base_size
       )
+      if (is.null(xlab)) {
+        xlab <- clean_col_name(var1_name)
+      }
+      if (is.null(ylab)) {
+        ylab <- clean_col_name(var2_name)
+      }
     }
   }
   # One date var, one continuous -> line chart
@@ -69,6 +91,9 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
     is.numeric(var2) &&
     is.null(var3)) {
     g <- ggauto_line(var1 = var1, var2 = var2, base_size = base_size)
+    if (is.null(ylab)) {
+      ylab <- clean_col_name(var2_name)
+    }
     xlab <- NULL
   }
   # One date var, one continuous var, one discrete var -> coloured line chart
@@ -81,12 +106,18 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
         base_size = base_size
       )
       xlab <- NULL
+      if (is.null(ylab)) {
+        ylab <- clean_col_name(var2_name)
+      }
     } else {
       g <- ggauto_line_colour(
         var1 = var1, var2 = var2, var3 = var3,
         base_size = base_size
       )
       xlab <- NULL
+      if (is.null(ylab)) {
+        ylab <- clean_col_name(var2_name)
+      }
     }
   }
   # One discrete var -> bar plot
@@ -95,6 +126,9 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
     is.null(var3)) {
     g <- ggauto_bar(var1 = var1, var2 = var2)
     ylab <- NULL
+    if (is.null(xlab)) {
+      xlab <- "Count"
+    }
   }
   # One discrete var, one continuous -> bar plot / raincloud plot
   else if ((is.character(var1) || is.factor(var1)) &&
@@ -104,6 +138,9 @@ ggauto <- function(var1 = NULL, var2 = NULL, var3 = NULL,
       g <- ggauto_bar(var1 = var1, var2 = var2)
     } else {
       g <- ggauto_density(var1 = var1, var2 = var2)
+    }
+    if (is.null(xlab)) {
+      xlab <- clean_col_name(var2_name)
     }
     ylab <- NULL
   }
