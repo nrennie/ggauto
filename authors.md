@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/nrennie/ggauto/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/nrennie/ggauto/blob/v0.0.1/DESCRIPTION)
 
 Rennie N (2026). *ggauto: Automatically Create and Style 'ggplot2'
 Charts*. R package version 0.0.1, <https://nrennie.rbind.io/ggauto/>.
