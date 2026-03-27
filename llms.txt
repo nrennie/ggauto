@@ -11,11 +11,11 @@ and values in the data. It’s based on the following three principles:
 - Data pre-processing is a separate step to plotting, and you need to
   understand what your data is before you plot it.
 
-> \[!WARNING\] If you don’t like some (or all) of the opinionated
-> choices in this package, make a fork and create your own version. Bug
-> reports and/or fixes are extremely welcome for things that don’t work,
-> but stylistic changes that are personal preferences will not be
-> addressed.
+> \[!WARNING\]  
+> If you don’t like some (or all) of the opinionated choices in this
+> package, make a fork and create your own version. Bug reports and/or
+> fixes are extremely welcome for things that don’t work, but stylistic
+> changes that are personal preferences will not be addressed.
 
 This package is built on the philosophy that data wrangling and plotting
 are separate parts of the process of building a chart. Tasks like
