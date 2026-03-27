@@ -7,9 +7,13 @@ ggauto_density <- function(var1, var2) {
     p_data <- data.frame(x = var2, y = var1)
     if (is.character(p_data$y)) {
       p_data <- p_data |>
-        dplyr::mutate(y = stringr::str_wrap(stats::reorder(.data$y, .data$x,
-          FUN = stats::median
-        ), 20))
+        dplyr::mutate(
+          y = stats::reorder(.data$y, .data$x, FUN = stats::median),
+          y = factor(
+            stringr::str_wrap(as.character(y), 20),
+            levels = stringr::str_wrap(levels(y), 20)
+          )
+        )
     }
   }
   ggplot2::ggplot(
@@ -39,8 +43,13 @@ ggauto_bar <- function(var1, var2) {
   }
   if (is.character(var1)) {
     p_data <- p_data |>
-      dplyr::mutate(x = stringr::str_wrap(
-        stats::reorder(.data$x, -.data$Count), 20))
+      dplyr::mutate(
+        x = stats::reorder(.data$x, -.data$Count),
+        x = factor(
+          stringr::str_wrap(as.character(x), 20),
+          levels = stringr::str_wrap(levels(x), 20)
+        )
+      )
   }
   g <- ggplot2::ggplot(
     data = p_data,
@@ -199,16 +208,23 @@ ggauto_heatmap <- function(var1, var2, var3, base_size) {
   }
   if (is.character(var1)) {
     p_data <- p_data |>
-      dplyr::mutate(x = stringr::str_wrap(
-        stats::reorder(.data$x, .data$n,
-        FUN = sum
-      ), 20))
+      dplyr::mutate(
+        x = stats::reorder(.data$x, .data$n, FUN = sum),
+        x = factor(
+          stringr::str_wrap(as.character(x), 20),
+          levels = stringr::str_wrap(levels(x), 20)
+        )
+      )
   }
   if (is.character(var2)) {
     p_data <- p_data |>
-      dplyr::mutate(y = stringr::str_wrap(stats::reorder(.data$y, -.data$n,
-        FUN = sum
-      ), 20))
+      dplyr::mutate(
+        y = stats::reorder(.data$y, -.data$n, FUN = sum),
+        y = factor(
+          stringr::str_wrap(as.character(y), 20),
+          levels = stringr::str_wrap(levels(y), 20)
+        )
+      )
   }
   label_in_data <- p_data |>
     dplyr::filter(.data$r > 0.24)
