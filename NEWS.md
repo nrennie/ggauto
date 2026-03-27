@@ -1,5 +1,9 @@
 # ggauto
 
+## ggauto 0.0.1.9000
+
+* Add CRAN badge
+
 ## ggauto 0.0.1
 
 * Initialise package
