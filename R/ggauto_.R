@@ -10,8 +10,8 @@ ggauto_density <- function(var1, var2) {
         dplyr::mutate(
           y = stats::reorder(.data$y, .data$x, FUN = stats::median),
           y = factor(
-            stringr::str_wrap(as.character(y), 20),
-            levels = stringr::str_wrap(levels(y), 20)
+            stringr::str_wrap(as.character(.data$y), 20),
+            levels = stringr::str_wrap(levels(.data$y), 20)
           )
         )
     }
@@ -46,8 +46,8 @@ ggauto_bar <- function(var1, var2) {
       dplyr::mutate(
         x = stats::reorder(.data$x, -.data$Count),
         x = factor(
-          stringr::str_wrap(as.character(x), 20),
-          levels = stringr::str_wrap(levels(x), 20)
+          stringr::str_wrap(as.character(.data$x), 20),
+          levels = stringr::str_wrap(levels(.data$x), 20)
         )
       )
   }
@@ -211,8 +211,8 @@ ggauto_heatmap <- function(var1, var2, var3, base_size) {
       dplyr::mutate(
         x = stats::reorder(.data$x, .data$n, FUN = sum),
         x = factor(
-          stringr::str_wrap(as.character(x), 20),
-          levels = stringr::str_wrap(levels(x), 20)
+          stringr::str_wrap(as.character(.data$x), 20),
+          levels = stringr::str_wrap(levels(.data$x), 20)
         )
       )
   }
@@ -221,8 +221,8 @@ ggauto_heatmap <- function(var1, var2, var3, base_size) {
       dplyr::mutate(
         y = stats::reorder(.data$y, -.data$n, FUN = sum),
         y = factor(
-          stringr::str_wrap(as.character(y), 20),
-          levels = stringr::str_wrap(levels(y), 20)
+          stringr::str_wrap(as.character(.data$y), 20),
+          levels = stringr::str_wrap(levels(.data$y), 20)
         )
       )
   }
