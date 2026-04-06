@@ -2,5 +2,5 @@
 
 ## All functions
 
-- [`ggauto()`](http://nrennie.rbind.io/ggauto/reference/ggauto.md) :
+- [`ggauto()`](https://nrennie.rbind.io/ggauto/reference/ggauto.md) :
   Automatic ggplot plot

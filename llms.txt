@@ -354,7 +354,7 @@ mpg |>
 For scatterplots, raincloud plots, and line charts, one or both of the
 axes may be symmetric about 0 by default. This happens automatically
 when 0 exists in the range of values. Since the output of
-[`ggauto()`](http://nrennie.rbind.io/ggauto/reference/ggauto.md) is
+[`ggauto()`](https://nrennie.rbind.io/ggauto/reference/ggauto.md) is
 simply a `ggplot2` chart, you can override this if you don’t want it:
 
 ``` r
@@ -384,10 +384,10 @@ default palette is chosen to be accessible.
 You can a title, subtitle, caption, and labels with the
 [`labs()`](https://ggplot2.tidyverse.org/reference/labs.html) function
 in `ggplot2` as you normally would, or directly using the same arguments
-in [`ggauto()`](http://nrennie.rbind.io/ggauto/reference/ggauto.md). The
-latter is recommended as the arguments are used a little abnormally to
-implement the styling. You can add markdown formatting into the title,
-subtitle, or caption:
+in [`ggauto()`](https://nrennie.rbind.io/ggauto/reference/ggauto.md).
+The latter is recommended as the arguments are used a little abnormally
+to implement the styling. You can add markdown formatting into the
+title, subtitle, or caption:
 
 ``` r
 plot_data |>
@@ -415,6 +415,6 @@ relative to the `base_size` as well.
 
 ## All functions
 
-- [`ggauto()`](http://nrennie.rbind.io/ggauto/reference/ggauto.md) :
+- [`ggauto()`](https://nrennie.rbind.io/ggauto/reference/ggauto.md) :
   Automatic ggplot plot
 
