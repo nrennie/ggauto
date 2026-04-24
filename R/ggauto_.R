@@ -106,8 +106,10 @@ ggauto_scatter_facet <- function(var1, var2, var3, base_size) {
     auto_zero_line(var2) +
     ggplot2::geom_point(size = 0.2 * base_size, show.legend = FALSE) +
     ggplot2::scale_colour_manual(values = rep("black", n_cat)) +
+    ggplot2::scale_x_continuous(guide = ggplot2::guide_axis(check.overlap = TRUE)) +
+    ggplot2::scale_y_continuous(guide = ggplot2::guide_axis(check.overlap = TRUE)) +
     gghighlight::gghighlight(use_direct_label = FALSE) +
-    ggplot2::facet_wrap(~.data$z) +
+    ggplot2::facet_wrap(~ .data$z) +
     ggplot2::coord_cartesian(expand = FALSE, clip = "off") +
     auto_y_axis(var2)
   return(g)
@@ -131,7 +133,8 @@ ggauto_line_colour <- function(var1, var2, var3, base_size, base_family) {
   p_data <- data.frame(x = var1, y = var2, z = var3)
   last_date <- p_data |>
     dplyr::group_by(.data$z) |>
-    dplyr::slice_max(.data$x)
+    dplyr::slice_max(.data$x) |>
+    dplyr::ungroup()
   g <- ggplot2::ggplot(
     data = p_data,
     mapping = ggplot2::aes(
@@ -156,14 +159,13 @@ ggauto_line_colour <- function(var1, var2, var3, base_size, base_family) {
     ) +
     ggrepel::geom_text_repel(
       data = last_date,
-      mapping = ggplot2::aes(label = .data$z),
+      mapping = ggplot2::aes(label = paste0("  ", .data$z)),
       show.legend = FALSE,
       fontface = "bold",
       family = base_family,
       direction = "y",
       hjust = 0,
       box.padding = 0.5,
-      xlim = c(max(last_date$x), NA),
       seed = 123,
       size = 0.8 * base_size * 0.3528
     ) +
@@ -186,10 +188,14 @@ ggauto_line_facet <- function(var1, var2, var3, base_size) {
     auto_zero_line(var2) +
     ggplot2::geom_line(
       show.legend = FALSE,
-      linewidth = 0.1 * base_size
+      linewidth = 0.08 * base_size
     ) +
     ggplot2::scale_colour_manual(values = rep("black", n_cat)) +
-    ggplot2::scale_y_continuous(labels = scales::comma) +
+    ggplot2::scale_x_date(guide = ggplot2::guide_axis(check.overlap = TRUE)) +
+    ggplot2::scale_y_continuous(
+      labels = scales::comma,
+      guide = ggplot2::guide_axis(check.overlap = TRUE)
+    ) +
     gghighlight::gghighlight(use_direct_label = FALSE) +
     ggplot2::facet_wrap(~ .data$z) +
     ggplot2::coord_cartesian(expand = FALSE, clip = "off")
