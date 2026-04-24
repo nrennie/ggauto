@@ -1,16 +1,16 @@
 #' @noRd
 make_title <- function(title, subtitle, base_size) {
-  if (is.null(title) & !is.null(subtitle)) {
+  if (is.null(title) && !is.null(subtitle)) {
     title <- stringr::str_trim(title)
     new_title <- glue::glue(
       "**{title}**"
     )
-    message("If you have a title, you should probably also have a subtitle! The title should describe the main trend, and the subtitle should provide the details of what is being presented.")
-  } else if (!is.null(title) & is.null(subtitle)) {
+    message("If you have a title, you should probably also have a subtitle! The title should describe the main trend, and the subtitle should provide the details of what is being presented.") # nolint
+  } else if (!is.null(title) && is.null(subtitle)) {
     new_title <- glue::glue(
       "<span style='color:#474747; font-size:{0.8*base_size}pt;'>{subtitle}</span>"
     )
-    message("If you have a subtitle, you should probably also have a title! The title should describe the main trend, and the subtitle should provide the details of what is being presented.")
+    message("If you have a subtitle, you should probably also have a title! The title should describe the main trend, and the subtitle should provide the details of what is being presented.") # nolint
   } else {
     title <- stringr::str_trim(title)
     new_title <- glue::glue(
@@ -75,7 +75,6 @@ clean_col_name <- function(str) {
 
 #' @noRd
 facet_height <- function(labels) {
-  g_size <- ceiling(sqrt(length(labels)))
   biggest_label <- max(nchar(labels))
   if (biggest_label < 15) {
     height <- 1
