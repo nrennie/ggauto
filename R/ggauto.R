@@ -25,6 +25,12 @@ ggauto <- function(data = NULL,
                    xlab = NULL, ylab = NULL,
                    title = NULL, subtitle = NULL, caption = NULL,
                    base_size = 14, base_family = "sans") {
+  # Check for data
+  if (is.null(data) && ...length() == 0) {
+    stop("Either `data` or at least one additional argument must be provided.")
+  }
+
+  # Capture data
   dots <- rlang::ensyms(...)
   col_names <- lapply(dots, as.character)
 
