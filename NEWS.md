@@ -1,9 +1,11 @@
 # ggauto
 
-## ggauto 0.0.1.9000
+## ggauto 0.0.1.9000+
 
 * Add CRAN badge
 * Fix: character ordering
+* Fix: allow specification of only title or subtitle
+* Improve facet labelling and axis text
 
 ## ggauto 0.0.1
 

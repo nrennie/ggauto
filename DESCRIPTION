@@ -1,6 +1,6 @@
 Package: ggauto
 Title: Automatically Create and Style 'ggplot2' Charts
-Version: 0.0.1.9000
+Version: 0.0.1.9001
 Authors@R: 
     person("Nicola", "Rennie", , "nrennie.research@gmail.com", role = c("aut", "cre", "cph"))
 Description: Automatically choose an appropriate chart type based on the
