@@ -106,7 +106,9 @@ ggauto <- function(data = NULL,
     if (is.null(ylab)) {
       ylab <- clean_col_name(var2_name)
     }
-    xlab <- NULL
+    if (is.null(xlab)) {
+      xlab <- ""
+    }
   }
   # One date var, one continuous var, one discrete var -> coloured line chart
   else if (lubridate::is.Date(var1) &&
@@ -117,7 +119,9 @@ ggauto <- function(data = NULL,
         var1 = var1, var2 = var2, var3 = var3,
         base_size = base_size
       )
-      xlab <- NULL
+      if (is.null(xlab)) {
+        xlab <- ""
+      }
       if (is.null(ylab)) {
         ylab <- clean_col_name(var2_name)
       }
@@ -127,7 +131,9 @@ ggauto <- function(data = NULL,
         base_size = base_size,
         base_family = base_family
       )
-      xlab <- NULL
+      if (is.null(xlab)) {
+        xlab <- ""
+      }
       if (is.null(ylab)) {
         ylab <- clean_col_name(var2_name)
       }
@@ -138,7 +144,9 @@ ggauto <- function(data = NULL,
     is.null(var2) &&
     is.null(var3)) {
     g <- ggauto_bar(var1 = var1, var2 = var2)
-    ylab <- NULL
+    if (is.null(xlab)) {
+      xlab <- ""
+    }
     if (is.null(xlab)) {
       xlab <- "Count"
     }
@@ -155,7 +163,9 @@ ggauto <- function(data = NULL,
     if (is.null(xlab)) {
       xlab <- clean_col_name(var2_name)
     }
-    ylab <- NULL
+    if (is.null(ylab)) {
+      ylab <- ""
+    }
   }
   # Two discrete var -> heatmap plot
   else if ((is.character(var1) || is.factor(var1)) &&
@@ -165,8 +175,12 @@ ggauto <- function(data = NULL,
       var1 = var1, var2 = var2, var3 = var3,
       base_size = base_size
     )
-    xlab <- NULL
-    ylab <- NULL
+    if (is.null(xlab)) {
+      xlab <- ""
+    }
+    if (is.null(ylab)) {
+      ylab <- ""
+    }
   }
   # Two discrete var, one continuous -> heatmap plot
   else if ((is.character(var1) || is.factor(var1)) &&
@@ -179,8 +193,12 @@ ggauto <- function(data = NULL,
         var1 = var1, var2 = var2, var3 = var3,
         base_size = base_size
       )
-      xlab <- NULL
-      ylab <- NULL
+      if (is.null(xlab)) {
+        xlab <- ""
+      }
+      if (is.null(ylab)) {
+        ylab <- ""
+      }
     }
   }
 
@@ -190,9 +208,7 @@ ggauto <- function(data = NULL,
   }
 
   # Make title
-  new_title <- glue::glue(
-    "**{title}**<br><span style='color:#474747; font-size:{0.8*base_size}pt;'>{subtitle}</span>"
-  )
+  new_title <- make_title(title, subtitle, base_size)
 
   # Edits
   g_final <- g +
