@@ -304,8 +304,12 @@ mpg |>
   dplyr::summarise(mean_hwy = mean(hwy)) |>
   dplyr::ungroup() |>
   ggauto(cyl, drv, mean_hwy)
-#> `summarise()` has grouped output by 'cyl'. You can override using the `.groups`
-#> argument.
+#> `summarise()` has regrouped the output.
+#> ℹ Summaries were computed grouped by cyl and drv.
+#> ℹ Output is grouped by cyl.
+#> ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+#> ℹ Use `summarise(.by = c(cyl, drv))` for per-operation grouping
+#>   (`?dplyr::dplyr_by`) instead.
 ```
 
 <img src="man/figures/README-unnamed-chunk-17-1.png" alt="" width="100%" />
@@ -352,6 +356,8 @@ facet:
 mpg |>
   dplyr::mutate(cyl = as.factor(cyl)) |>
   ggauto(displ, hwy, manufacturer)
+#> Scale for y is already present.
+#> Adding another scale for y, which will replace the existing scale.
 ```
 
 <img src="man/figures/README-unnamed-chunk-21-1.png" alt="" width="100%" />
