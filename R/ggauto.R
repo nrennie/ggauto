@@ -70,7 +70,11 @@ ggauto <- function(data = NULL,
     if (is.null(xlab)) {
       xlab <- clean_col_name(var1_name)
     }
-    ylab <- NULL
+    if (is.null(ylab)) {
+      ylab <- ""
+    }
+    g <- g +
+      theme_auto(base_size = base_size, base_family = base_family)
   }
   # Two continuous var -> scatter plot
   else if (is.numeric(var1) && is.numeric(var2) && is.null(var3)) {
@@ -81,6 +85,8 @@ ggauto <- function(data = NULL,
     if (is.null(ylab)) {
       ylab <- clean_col_name(var2_name)
     }
+    g <- g +
+      theme_auto(base_size = base_size, base_family = base_family)
   }
   # Two continuous var, one discrete var -> coloured scatter plot
   else if (is.numeric(var1) &&
@@ -91,11 +97,25 @@ ggauto <- function(data = NULL,
         var1 = var1, var2 = var2,
         var3 = var3, base_size = base_size
       )
+      # Adjust facet height
+      lbls <- unique(as.character(var3))
+      f_height <- facet_height(lbls)
+      g <- g +
+        theme_auto(base_size = base_size, base_family = base_family) +
+        ggplot2::theme(
+          strip.text.x = ggtext::element_textbox_simple(
+            hjust = 0, halign = 0, vjust = 0, valign = 0, face = "bold",
+            height = NULL,
+            minheight = unit(f_height, "lines"),
+          )
+        )
     } else {
       g <- ggauto_scatter_colour(
         var1 = var1, var2 = var2,
         var3 = var3, base_size = base_size
       )
+      g <- g +
+        theme_auto(base_size = base_size, base_family = base_family)
     }
     if (is.null(xlab)) {
       xlab <- clean_col_name(var1_name)
@@ -115,6 +135,8 @@ ggauto <- function(data = NULL,
     if (is.null(xlab)) {
       xlab <- ""
     }
+    g <- g +
+      theme_auto(base_size = base_size, base_family = base_family)
   }
   # One date var, one continuous var, one discrete var -> coloured line chart
   else if (lubridate::is.Date(var1) &&
@@ -131,12 +153,26 @@ ggauto <- function(data = NULL,
       if (is.null(ylab)) {
         ylab <- clean_col_name(var2_name)
       }
+      # Adjust facet height
+      lbls <- unique(as.character(var3))
+      f_height <- facet_height(lbls)
+      g <- g +
+        theme_auto(base_size = base_size, base_family = base_family) +
+        ggplot2::theme(
+          strip.text.x = ggtext::element_textbox_simple(
+            hjust = 0, halign = 0, vjust = 0, valign = 0, face = "bold",
+            height = NULL,
+            minheight = unit(f_height, "lines"),
+          )
+        )
     } else {
       g <- ggauto_line_colour(
         var1 = var1, var2 = var2, var3 = var3,
         base_size = base_size,
         base_family = base_family
       )
+      g <- g +
+        theme_auto(base_size = base_size, base_family = base_family)
       if (is.null(xlab)) {
         xlab <- ""
       }
@@ -156,6 +192,8 @@ ggauto <- function(data = NULL,
     if (is.null(xlab)) {
       xlab <- "Count"
     }
+    g <- g +
+      theme_auto(base_size = base_size, base_family = base_family)
   }
   # One discrete var, one continuous -> bar plot / raincloud plot
   else if ((is.character(var1) || is.factor(var1)) &&
@@ -172,6 +210,8 @@ ggauto <- function(data = NULL,
     if (is.null(ylab)) {
       ylab <- ""
     }
+    g <- g +
+      theme_auto(base_size = base_size, base_family = base_family)
   }
   # Two discrete var -> heatmap plot
   else if ((is.character(var1) || is.factor(var1)) &&
@@ -187,6 +227,8 @@ ggauto <- function(data = NULL,
     if (is.null(ylab)) {
       ylab <- ""
     }
+    g <- g +
+      theme_auto(base_size = base_size, base_family = base_family)
   }
   # Two discrete var, one continuous -> heatmap plot
   else if ((is.character(var1) || is.factor(var1)) &&
@@ -205,6 +247,8 @@ ggauto <- function(data = NULL,
       if (is.null(ylab)) {
         ylab <- ""
       }
+      g <- g +
+        theme_auto(base_size = base_size, base_family = base_family)
     }
   }
 
@@ -213,17 +257,15 @@ ggauto <- function(data = NULL,
     stop("An appropriate chart type has not yet been implemented.")
   }
 
-  # Make title
+  # Add text
   new_title <- make_title(title, subtitle, base_size)
-
-  # Edits
   g_final <- g +
     ggplot2::labs(
       x = xlab,
       title = new_title,
       subtitle = ylab,
       caption = caption
-    ) +
-    theme_auto(base_size = base_size, base_family = base_family)
+    )
+
   return(g_final)
 }

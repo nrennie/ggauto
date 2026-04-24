@@ -6,7 +6,7 @@ make_title <- function(title, subtitle, base_size) {
       "**{title}**"
     )
     message("If you have a title, you should probably also have a subtitle! The title should describe the main trend, and the subtitle should provide the details of what is being presented.")
-  } else if (!is.null(title) & is.null(subtitle)){
+  } else if (!is.null(title) & is.null(subtitle)) {
     new_title <- glue::glue(
       "<span style='color:#474747; font-size:{0.8*base_size}pt;'>{subtitle}</span>"
     )
@@ -74,6 +74,18 @@ clean_col_name <- function(str) {
 }
 
 #' @noRd
+facet_height <- function(labels) {
+  g_size <- ceiling(sqrt(length(labels)))
+  biggest_label <- max(nchar(labels))
+  if (biggest_label < 15) {
+    height <- 1
+  } else {
+    height <- 1.8
+  }
+  return(height)
+}
+
+#' @noRd
 theme_auto <- function(base_size = 14, base_family = "sans") {
   ggplot2::theme_minimal(base_family = base_family, base_size = base_size) +
     ggplot2::theme(
@@ -104,9 +116,6 @@ theme_auto <- function(base_size = 14, base_family = "sans") {
         size = ggplot2::rel(1)
       ),
       axis.title.y = ggplot2::element_blank(),
-      strip.text.x = ggtext::element_textbox_simple(
-        hjust = 0, halign = 0, face = "bold"
-      ),
       panel.spacing = ggplot2::unit(1.5, "lines")
     )
 }
