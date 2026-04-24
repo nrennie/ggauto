@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ggauto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -314,8 +314,12 @@ If you don’t like some (or all) of the opinionated choices in this package, ma
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>mean_hwy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">drv</span>, <span class="va">mean_hwy</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `summarise()` has grouped output by 'cyl'. You can override using the `.groups`</span></span>
-<span><span class="co">#&gt; argument.</span></span></code></pre></div>
+<span><span class="co">#&gt; `summarise()` has regrouped the output.</span></span>
+<span><span class="co">#&gt; ℹ Summaries were computed grouped by cyl and drv.</span></span>
+<span><span class="co">#&gt; ℹ Output is grouped by cyl.</span></span>
+<span><span class="co">#&gt; ℹ Use `summarise(.groups = "drop_last")` to silence this message.</span></span>
+<span><span class="co">#&gt; ℹ Use `summarise(.by = c(cyl, drv))` for per-operation grouping</span></span>
+<span><span class="co">#&gt;   (`?dplyr::dplyr_by`) instead.</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-17-1.png" alt="" width="100%"></p>
 <p>If there are multiple continuous values per combination of categories, and error is returned, asking you to first summarise the data:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -343,7 +347,9 @@ If you don’t like some (or all) of the opinionated choices in this package, ma
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, <span class="va">manufacturer</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, <span class="va">manufacturer</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Scale for y is already present.</span></span>
+<span><span class="co">#&gt; Adding another scale for y, which will replace the existing scale.</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-21-1.png" alt="" width="100%"></p>
 </div>
 </div>
