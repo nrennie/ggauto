@@ -131,8 +131,8 @@ values is created:
 
 diamonds |>
   dplyr::group_by(cut) |>
-  dplyr::summarise(med_price = median(price)) |>
-  ggauto(cut, med_price)
+  dplyr::summarise(median_price = median(price)) |>
+  ggauto(cut, median_price)
 ```
 
 ![](Examples_files/figure-html/unnamed-chunk-11-1.png)
@@ -146,9 +146,9 @@ alphabetical ordering:
 
 diamonds |>
   dplyr::group_by(cut) |>
-  dplyr::summarise(med_price = median(price)) |>
+  dplyr::summarise(median_price = median(price)) |>
   dplyr::mutate(cut = as.character(cut)) |>
-  ggauto(cut, med_price)
+  ggauto(cut, median_price)
 ```
 
 ![](Examples_files/figure-html/unnamed-chunk-12-1.png)

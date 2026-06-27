@@ -85,15 +85,15 @@ visualise the distribution, for example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">displ</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="100%"></p>
 <p>You can pass the data directly instead of using the pipe:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">displ</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Or pass it in as a vector:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">displ</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="100%"></p>
 <p>If you have multiple categories, and you want to visualise the
 distribution for each of them, i.e., you have <strong>one discrete
 variable, and one continuous variable</strong>, then multiple raincloud
@@ -101,7 +101,7 @@ plots are produced.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">drv</span>, <span class="va">displ</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="visualising-data-over-time">Visualising data over time<a class="anchor" aria-label="anchor" href="#visualising-data-over-time"></a>
@@ -111,7 +111,7 @@ date variable, and one continuous variable</strong>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">economics</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">unemploy</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="100%"></p>
 <p>a line chart is produced.</p>
 <p>If you need to show how multiple variables change over time, i.e.,
 <strong>one date variable, continuous variable, and one discrete
@@ -125,7 +125,7 @@ added at the end of each line automatically.</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">city</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Houston"</span>, <span class="st">"Fort Worth"</span>, <span class="st">"San Antonio"</span>, <span class="st">"Austin"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">year</span>, <span class="st">"/"</span>, <span class="va">month</span>, <span class="st">"/01"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">sales</span>, <span class="va">city</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="100%"></p>
 <p>If you have more than 6 categories, the plot type changes to a
 faceted line chart, with one category highlighted on each facet:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -136,7 +136,7 @@ faceted line chart, with one category highlighted on each facet:</p>
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">year</span>, <span class="st">"/"</span>, <span class="va">month</span>, <span class="st">"/01"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">sales</span>, <span class="va">city</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="visualising-magnitudes-and-ranks">Visualising magnitudes and ranks<a class="anchor" aria-label="anchor" href="#visualising-magnitudes-and-ranks"></a>
@@ -146,7 +146,7 @@ counts of each category is created:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="100%"></p>
 <p>If you have pre-computed the counts or some other summary statistics,
 i.e., if you have <strong>one discrete variable, and one continuous
 variable</strong> with only a single value for each discrete variable, a
@@ -154,9 +154,9 @@ bar chart of the values is created:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>med_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">med_price</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="700"></p>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>median_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">median_price</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Examples_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="100%"></p>
 <p>As you can see, when the discrete variable is a factor
 (i.e. <code>cut</code>), the desired order is respected. If the discrete
 variable is not a factor, the bars are ordered from highest to lowest
@@ -164,10 +164,10 @@ instead of the default alphabetical ordering:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>med_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>median_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">med_price</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="700"></p>
+<span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">median_price</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Examples_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="100%"></p>
 <p>If you have <strong>two discrete variables</strong>, then a heatmap
 is created showing the count of each combination of categories. Labels
 are added showing the count.</p>
@@ -175,21 +175,21 @@ are added showing the count.</p>
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">drv</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="100%"></p>
 <p>If there are more than 6 categories on either axis, labels are
 replaced with a legend:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">trans</span>, <span class="va">cyl</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Again, if one or both of the discrete variables is a factor, then the
 order is respected:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">trans</span>, <span class="va">cyl</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="100%"></p>
 <p>If you have <strong>two discrete variables</strong> and a third
 <strong>continuous variable</strong> showing some summary statistic for
 each category combination, a heatmap showing that value is created.
@@ -200,7 +200,7 @@ Labels are rounded to 2 decimal places.</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">drv</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>mean_hwy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">hwy</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">drv</span>, <span class="va">mean_hwy</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="100%"></p>
 <p>If there are multiple continuous values per combination of
 categories, and error is returned, asking you to first summarise the
 data:</p>
@@ -219,7 +219,7 @@ variables</strong>:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="100%"></p>
 <p>To show the correlation between <strong>two continuous
 variables</strong>, split by a third <strong>discrete</strong> variable,
 a scatter plot using colours and shapes is created:</p>
@@ -227,7 +227,7 @@ a scatter plot using colours and shapes is created:</p>
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, <span class="va">cyl</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="100%"></p>
 <p>If you try to use more than 6 colours (categories), the chart type
 changes to a faceted scatter plot with one category highlighted on each
 facet:</p>
@@ -235,7 +235,7 @@ facet:</p>
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggauto.html">ggauto</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, <span class="va">manufacturer</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -259,7 +259,7 @@ override this if you don’t want it:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
 <span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" alt="" width="100%"></p>
 <p>You’ll get a warning to say you are replacing the existing scale
 which you can ignore because it’s what you’re trying to do!</p>
 <p>Similarly, you can edit the default colour/fill scales. However, the
@@ -282,7 +282,7 @@ title, subtitle, or caption:</p>
 <span>    caption <span class="op">=</span> <span class="st">"**Source**: where the data is from"</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"Nice variable name"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="100%"></p>
 <p>By default, the x or y axis title is removed on chart types
 e.g. where the axis is a date or category and a further label stating
 that is unnecessary. Unless otherwise specified, the axis labels are
