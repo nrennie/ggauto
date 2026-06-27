@@ -1,6 +1,6 @@
-#' Automatic ggplot plot
+#' Automated `ggplot2` charts
 #'
-#' Automatically create an appropriate ggplot2 chart type based on the
+#' Automatically create an appropriate 'ggplot2' chart type based on the
 #' classes of the provided variables.
 #'
 #' @param data A data frame, or a bare vector when not using the pipe.

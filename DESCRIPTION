@@ -32,3 +32,4 @@ RoxygenNote: 7.3.3
 Config/Needs/website: nrennie/nrenniepkgdown
 URL: https://nrennie.rbind.io/ggauto/
 BugReports: https://github.com/nrennie/ggauto/issues
+VignetteBuilder: knitr
