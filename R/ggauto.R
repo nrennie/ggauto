@@ -186,8 +186,8 @@ ggauto <- function(data = NULL,
     is.null(var2) &&
     is.null(var3)) {
     g <- ggauto_bar(var1 = var1, var2 = var2)
-    if (is.null(xlab)) {
-      xlab <- ""
+    if (is.null(ylab)) {
+      ylab <- ""
     }
     if (is.null(xlab)) {
       xlab <- "Count"
@@ -211,6 +211,7 @@ ggauto <- function(data = NULL,
       ylab <- ""
     }
     g <- g +
+      labs(y = xlab) +
       theme_auto(base_size = base_size, base_family = base_family)
   }
   # Two discrete var -> heatmap plot
