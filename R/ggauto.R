@@ -106,6 +106,7 @@ ggauto <- function(data = NULL,
           strip.text.x = ggtext::element_textbox_simple(
             hjust = 0, halign = 0, vjust = 0, valign = 0, face = "bold",
             height = NULL,
+            margin = margin(b = 5),
             minheight = ggplot2::unit(f_height, "lines"),
           )
         )
@@ -161,6 +162,7 @@ ggauto <- function(data = NULL,
         ggplot2::theme(
           strip.text.x = ggtext::element_textbox_simple(
             hjust = 0, halign = 0, vjust = 0, valign = 0, face = "bold",
+            margin = margin(b = 5),
             height = NULL,
             minheight = ggplot2::unit(f_height, "lines"),
           )
