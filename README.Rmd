@@ -103,28 +103,27 @@ library(ggplot2)
 If you have only **continuous variable** and you want to visualise the distribution, for example: 
 
 ```{r}
-penguins |>
-  ggauto(bill_dep)
+mpg |>
+  ggauto(displ)
 ```
 
 You can pass the data directly instead of using the pipe:
 
 ```{r}
-ggauto(penguins, bill_dep)
+ggauto(mpg, displ)
 ```
 
 Or pass it in as a vector:
 
 ```{r}
-ggauto(penguins$bill_dep)
+ggauto(mpg$displ)
 ```
 
 If you have multiple categories, and you want to visualise the distribution for each of them, i.e., you have **one discrete variable, and one continuous variable**, then multiple raincloud plots are produced.
 
 ```{r}
-penguins |>
-  dplyr::filter(species == "Adelie") |>
-  ggauto(island, flipper_len)
+mpg |>
+  ggauto(drv, displ)
 ```
 
 ### Visualising data over time
@@ -132,9 +131,8 @@ penguins |>
 If you have a single variable to show over time, i.e., **one date variable, and one continuous variable**: 
 
 ```{r}
-economics_long |>
-  dplyr::filter(variable == "unemploy") |>
-  ggauto(date, value)
+economics |>
+  ggauto(date, unemploy)
 ```
 
 a line chart is produced.

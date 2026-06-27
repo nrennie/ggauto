@@ -118,12 +118,8 @@ If you have only **continuous variable** and you want to visualise the
 distribution, for example:
 
 ``` r
-penguins |>
-  ggauto(bill_dep)
-#> Warning: Removed 2 rows containing missing values or values outside the scale range
-#> (`stat_slabinterval()`).
-#> Removed 2 rows containing missing values or values outside the scale range
-#> (`stat_slabinterval()`).
+mpg |>
+  ggauto(displ)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" alt="" width="100%" />
@@ -131,11 +127,7 @@ penguins |>
 You can pass the data directly instead of using the pipe:
 
 ``` r
-ggauto(penguins, bill_dep)
-#> Warning: Removed 2 rows containing missing values or values outside the scale range
-#> (`stat_slabinterval()`).
-#> Removed 2 rows containing missing values or values outside the scale range
-#> (`stat_slabinterval()`).
+ggauto(mpg, displ)
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" alt="" width="100%" />
@@ -143,11 +135,7 @@ ggauto(penguins, bill_dep)
 Or pass it in as a vector:
 
 ``` r
-ggauto(penguins$bill_dep)
-#> Warning: Removed 2 rows containing missing values or values outside the scale range
-#> (`stat_slabinterval()`).
-#> Removed 2 rows containing missing values or values outside the scale range
-#> (`stat_slabinterval()`).
+ggauto(mpg$displ)
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" alt="" width="100%" />
@@ -158,13 +146,8 @@ and one continuous variable**, then multiple raincloud plots are
 produced.
 
 ``` r
-penguins |>
-  dplyr::filter(species == "Adelie") |>
-  ggauto(island, flipper_len)
-#> Warning: Removed 1 row containing missing values or values outside the scale range
-#> (`stat_slabinterval()`).
-#> Removed 1 row containing missing values or values outside the scale range
-#> (`stat_slabinterval()`).
+mpg |>
+  ggauto(drv, displ)
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" alt="" width="100%" />
@@ -175,9 +158,8 @@ If you have a single variable to show over time, i.e., **one date
 variable, and one continuous variable**:
 
 ``` r
-economics_long |>
-  dplyr::filter(variable == "unemploy") |>
-  ggauto(date, value)
+economics |>
+  ggauto(date, unemploy)
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" alt="" width="100%" />
