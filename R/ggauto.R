@@ -195,6 +195,7 @@ ggauto <- function(data = NULL,
       xlab <- "Count"
     }
     g <- g +
+      labs(y = xlab) +
       theme_auto(base_size = base_size, base_family = base_family)
   }
   # One discrete var, one continuous -> bar plot / raincloud plot
