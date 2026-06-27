@@ -3,4 +3,5 @@
 ## All functions
 
 - [`ggauto()`](https://nrennie.rbind.io/ggauto/reference/ggauto.md) :
-  Automatic ggplot plot
+
+  Automated `ggplot2` charts

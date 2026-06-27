@@ -1,6 +1,6 @@
-# Automatic ggplot plot
+# Automated `ggplot2` charts
 
-Automatically create an appropriate ggplot2 chart type based on the
+Automatically create an appropriate 'ggplot2' chart type based on the
 classes of the provided variables.
 
 ## Usage
