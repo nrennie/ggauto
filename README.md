@@ -283,15 +283,8 @@ places.
 mpg |>
   dplyr::mutate(cyl = as.character(cyl)) |>
   dplyr::group_by(cyl, drv) |>
-  dplyr::summarise(mean_hwy = mean(hwy)) |>
-  dplyr::ungroup() |>
+  dplyr::summarise(mean_hwy = mean(hwy), .groups = "drop") |> 
   ggauto(cyl, drv, mean_hwy)
-#> `summarise()` has regrouped the output.
-#> ℹ Summaries were computed grouped by cyl and drv.
-#> ℹ Output is grouped by cyl.
-#> ℹ Use `summarise(.groups = "drop_last")` to silence this message.
-#> ℹ Use `summarise(.by = c(cyl, drv))` for per-operation grouping
-#>   (`?dplyr::dplyr_by`) instead.
 ```
 
 <img src="man/figures/README-unnamed-chunk-17-1.png" alt="" width="100%" />
@@ -348,7 +341,7 @@ mpg |>
 
 ### Scales
 
-For scatterplots, raincloud plots, and line charts, one or both of the
+For scatter plots, raincloud plots, and line charts, one or both of the
 axes may be symmetric about 0 by default. This happens automatically
 when 0 exists in the range of values. Since the output of `ggauto()` is
 simply a `ggplot2` chart, you can override this if you don’t want it:
