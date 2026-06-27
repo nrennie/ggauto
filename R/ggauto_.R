@@ -105,7 +105,7 @@ ggauto_scatter_facet <- function(var1, var2, var3, base_size) {
   ) +
     auto_zero_line(var2) +
     ggplot2::geom_point(size = 0.2 * base_size, show.legend = FALSE) +
-    ggplot2::scale_colour_manual(values = rep(alpha("black", alpha = 0.8), n_cat)) +
+    ggplot2::scale_colour_manual(values = rep(ggplot2::alpha("black", alpha = 0.8), n_cat)) +
     ggplot2::scale_x_continuous(guide = ggplot2::guide_axis(check.overlap = TRUE)) +
     gghighlight::gghighlight(use_direct_label = FALSE) +
     ggplot2::facet_wrap(~ .data$z) +

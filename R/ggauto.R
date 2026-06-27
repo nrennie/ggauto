@@ -106,7 +106,7 @@ ggauto <- function(data = NULL,
           strip.text.x = ggtext::element_textbox_simple(
             hjust = 0, halign = 0, vjust = 0, valign = 0, face = "bold",
             height = NULL,
-            margin = margin(b = 5),
+            margin = ggplot2::margin(b = 5),
             minheight = ggplot2::unit(f_height, "lines"),
           )
         )
@@ -162,7 +162,7 @@ ggauto <- function(data = NULL,
         ggplot2::theme(
           strip.text.x = ggtext::element_textbox_simple(
             hjust = 0, halign = 0, vjust = 0, valign = 0, face = "bold",
-            margin = margin(b = 5),
+            margin = ggplot2::margin(b = 5),
             height = NULL,
             minheight = ggplot2::unit(f_height, "lines"),
           )
@@ -195,7 +195,7 @@ ggauto <- function(data = NULL,
       xlab <- "Count"
     }
     g <- g +
-      labs(y = xlab) +
+      ggplot2::labs(y = xlab) +
       theme_auto(base_size = base_size, base_family = base_family)
   }
   # One discrete var, one continuous -> bar plot / raincloud plot
@@ -214,7 +214,7 @@ ggauto <- function(data = NULL,
       ylab <- ""
     }
     g <- g +
-      labs(y = xlab) +
+      ggplot2::labs(y = xlab) +
       theme_auto(base_size = base_size, base_family = base_family)
   }
   # Two discrete var -> heatmap plot
