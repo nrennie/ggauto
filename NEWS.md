@@ -1,6 +1,6 @@
 # ggauto
 
-## ggauto 0.0.1.9000+
+## ggauto 0.0.2
 
 * Add CRAN badge
 * Fix: character ordering
