@@ -7,5 +7,5 @@ linters: linters_with_defaults(
     indentation_linter = NULL
   )
 exclusions: list(
-    "vignettes/Examples.Rmd" = list(line_length_linter = 217)
+    "vignettes/Examples.Rmd" = list(line_length_linter = 219)
   )

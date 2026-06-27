@@ -51,7 +51,7 @@ ggauto(mpg$displ)
 
 If you have multiple categories, and you want to visualise the distribution for each of them, i.e., you have **one discrete variable, and one continuous variable**, then multiple raincloud plots are produced.
 
-```{r}
+```{r, fig.height=6}
 mpg |>
   ggauto(drv, displ)
 ```
@@ -60,7 +60,7 @@ mpg |>
 
 If you have a single variable to show over time, i.e., **one date variable, and one continuous variable**: 
 
-```{r}
+```{r, fig.height=6}
 economics |>
   ggauto(date, unemploy)
 ```
@@ -71,7 +71,7 @@ If you need to show how multiple variables change over time, i.e., **one date va
 
 If you have 6 or fewer categories, a multi-line chart is created, with colours and symbols identifying the categories. Category labels are added at the end of each line automatically.
 
-```{r}
+```{r, fig.height=6}
 txhousing |>
   dplyr::filter(city %in% c("Houston", "Fort Worth", "San Antonio", "Austin")) |>
   dplyr::mutate(date = lubridate::ymd(paste0(year, "/", month, "/01"))) |>
@@ -80,7 +80,7 @@ txhousing |>
 
 If you have more than 6 categories, the plot type changes to a faceted line chart, with one category highlighted on each facet:
 
-```{r}
+```{r, fig.height=6}
 txhousing |>
   dplyr::filter(city %in% c(
     "Houston", "Fort Worth", "San Antonio", "Austin",
@@ -120,7 +120,7 @@ diamonds |>
 
 If you have **two discrete variables**, then a heatmap is created showing the count of each combination of categories. Labels are added showing the count.
 
-```{r}
+```{r, fig.height=8}
 mpg |>
   dplyr::mutate(cyl = as.character(cyl)) |>
   ggauto(cyl, drv)
@@ -128,7 +128,7 @@ mpg |>
 
 If there are more than 6 categories on either axis, labels are replaced with a legend:
 
-```{r}
+```{r, fig.height=6}
 mpg |>
   dplyr::mutate(cyl = as.character(cyl)) |>
   ggauto(trans, cyl)
@@ -136,7 +136,7 @@ mpg |>
 
 Again, if one or both of the discrete variables is a factor, then the order is respected:
 
-```{r}
+```{r, fig.height=6}
 mpg |>
   dplyr::mutate(cyl = as.factor(cyl)) |>
   ggauto(trans, cyl)
@@ -144,7 +144,7 @@ mpg |>
 
 If you have **two discrete variables** and a third **continuous variable** showing some summary statistic for each category combination, a heatmap showing that value is created. Labels are rounded to 2 decimal places.
 
-```{r}
+```{r, fig.height=8}
 mpg |>
   dplyr::mutate(cyl = as.character(cyl)) |>
   dplyr::group_by(cyl, drv) |>
@@ -164,14 +164,14 @@ mpg |>
 
 To show the correlation between **two continuous variables**:
 
-```{r}
+```{r, fig.height=6}
 mpg |>
   ggauto(displ, hwy)
 ```
 
 To show the correlation between **two continuous variables**, split by a third **discrete** variable, a scatter plot using colours and shapes is created:
 
-```{r}
+```{r, fig.height=6}
 mpg |>
   dplyr::mutate(cyl = as.factor(cyl)) |>
   ggauto(displ, hwy, cyl)
@@ -179,7 +179,7 @@ mpg |>
 
 If you try to use more than 6 colours (categories), the chart type changes to a faceted scatter plot with one category highlighted on each facet:
 
-```{r}
+```{r, fig.height=8}
 mpg |>
   dplyr::mutate(cyl = as.factor(cyl)) |>
   ggauto(displ, hwy, manufacturer)
@@ -199,7 +199,7 @@ plot_data <- data.frame(
 )
 ```
 
-```{r}
+```{r, fig.height=5}
 ggauto(plot_data, v1) +
   scale_x_continuous()
 ```
@@ -212,7 +212,7 @@ Similarly, you can edit the default colour/fill scales. However, the default pal
 
 You can a title, subtitle, caption, and labels with the `labs()` function in `ggplot2` as you normally would, or directly using the same arguments in `ggauto()`. The latter is recommended as the arguments are used a little abnormally to implement the styling. You can add markdown formatting into the title, subtitle, or caption:
 
-```{r}
+```{r, fig.height=5}
 plot_data |>
   ggauto(v1,
     title = "Descriptive title goes here",

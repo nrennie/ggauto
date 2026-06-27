@@ -206,16 +206,13 @@ ggauto <- function(data = NULL,
     is.numeric(var2) &&
     is.null(var3)) {
     if (max(table(var1)) == 1) {
-      g <- ggauto_bar(var1 = var1, var2 = var2)
-      g <- g +
-        ggplot2::labs(y = xlab) +
+      g <- ggauto_bar(var1 = var1, var2 = var2) +
         theme_auto(base_size = base_size, base_family = base_family) +
         ggplot2::theme(
           panel.grid.major.y = ggplot2::element_blank()
         )
     } else {
-      g <- ggauto_density(var1 = var1, var2 = var2)
-      g <- g +
+      g <- ggauto_density(var1 = var1, var2 = var2) +
         theme_auto(base_size = base_size, base_family = base_family)
     }
     if (is.null(xlab)) {
@@ -224,6 +221,8 @@ ggauto <- function(data = NULL,
     if (is.null(ylab)) {
       ylab <- ""
     }
+    g <- g +
+      ggplot2::labs(y = xlab)
   }
   # Two discrete var -> heatmap plot
   else if ((is.character(var1) || is.factor(var1)) &&
