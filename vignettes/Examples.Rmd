@@ -146,7 +146,7 @@ If you have **two discrete variables** and a third **continuous variable** showi
 mpg |>
   dplyr::mutate(cyl = as.character(cyl)) |>
   dplyr::group_by(cyl, drv) |>
-  dplyr::summarise(mean_hwy = mean(hwy), .groups = "drop") |> 
+  dplyr::summarise(mean_hwy = mean(hwy), .groups = "drop") |>
   ggauto(cyl, drv, mean_hwy)
 ```
 
