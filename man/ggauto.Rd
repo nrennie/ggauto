@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggauto.R
 \name{ggauto}
 \alias{ggauto}
-\title{Automatic ggplot plot}
+\title{Automated \code{ggplot2} charts}
 \usage{
 ggauto(
   data = NULL,
@@ -39,7 +39,7 @@ ggauto(
 A \code{ggplot2} plot object.
 }
 \description{
-Automatically create an appropriate ggplot2 chart type based on the
+Automatically create an appropriate 'ggplot2' chart type based on the
 classes of the provided variables.
 }
 \examples{

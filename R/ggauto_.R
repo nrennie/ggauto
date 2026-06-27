@@ -105,9 +105,8 @@ ggauto_scatter_facet <- function(var1, var2, var3, base_size) {
   ) +
     auto_zero_line(var2) +
     ggplot2::geom_point(size = 0.2 * base_size, show.legend = FALSE) +
-    ggplot2::scale_colour_manual(values = rep("black", n_cat)) +
+    ggplot2::scale_colour_manual(values = rep(ggplot2::alpha("black", alpha = 0.8), n_cat)) +
     ggplot2::scale_x_continuous(guide = ggplot2::guide_axis(check.overlap = TRUE)) +
-    ggplot2::scale_y_continuous(guide = ggplot2::guide_axis(check.overlap = TRUE)) +
     gghighlight::gghighlight(use_direct_label = FALSE) +
     ggplot2::facet_wrap(~ .data$z) +
     ggplot2::coord_cartesian(expand = FALSE, clip = "off") +
@@ -177,7 +176,16 @@ ggauto_line_colour <- function(var1, var2, var3, base_size, base_family) {
 #' @noRd
 ggauto_line_facet <- function(var1, var2, var3, base_size) {
   p_data <- data.frame(x = var1, y = var2, z = var3)
-  n_cat <- length(unique(var3))
+  if (is.factor(var3)) {
+    facet_levels <- levels(var3)
+  } else {
+    non_na <- p_data[!is.na(p_data$y), ]
+    non_na <- non_na[order(non_na$x), ]
+    last_vals <- non_na[!duplicated(non_na$z, fromLast = TRUE), ]
+    facet_levels <- last_vals$z[order(last_vals$y)]
+  }
+  p_data$z <- factor(p_data$z, levels = facet_levels)
+  n_cat <- length(facet_levels)
   g <- ggplot2::ggplot(
     data = p_data,
     mapping = ggplot2::aes(

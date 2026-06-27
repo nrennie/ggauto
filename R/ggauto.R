@@ -1,6 +1,6 @@
-#' Automatic ggplot plot
+#' Automated `ggplot2` charts
 #'
-#' Automatically create an appropriate ggplot2 chart type based on the
+#' Automatically create an appropriate 'ggplot2' chart type based on the
 #' classes of the provided variables.
 #'
 #' @param data A data frame, or a bare vector when not using the pipe.
@@ -106,6 +106,7 @@ ggauto <- function(data = NULL,
           strip.text.x = ggtext::element_textbox_simple(
             hjust = 0, halign = 0, vjust = 0, valign = 0, face = "bold",
             height = NULL,
+            margin = ggplot2::margin(b = 5),
             minheight = ggplot2::unit(f_height, "lines"),
           )
         )
@@ -161,6 +162,7 @@ ggauto <- function(data = NULL,
         ggplot2::theme(
           strip.text.x = ggtext::element_textbox_simple(
             hjust = 0, halign = 0, vjust = 0, valign = 0, face = "bold",
+            margin = ggplot2::margin(b = 5),
             height = NULL,
             minheight = ggplot2::unit(f_height, "lines"),
           )
@@ -186,13 +188,14 @@ ggauto <- function(data = NULL,
     is.null(var2) &&
     is.null(var3)) {
     g <- ggauto_bar(var1 = var1, var2 = var2)
-    if (is.null(xlab)) {
-      xlab <- ""
+    if (is.null(ylab)) {
+      ylab <- ""
     }
     if (is.null(xlab)) {
       xlab <- "Count"
     }
     g <- g +
+      ggplot2::labs(y = xlab) +
       theme_auto(base_size = base_size, base_family = base_family)
   }
   # One discrete var, one continuous -> bar plot / raincloud plot
@@ -211,6 +214,7 @@ ggauto <- function(data = NULL,
       ylab <- ""
     }
     g <- g +
+      ggplot2::labs(y = xlab) +
       theme_auto(base_size = base_size, base_family = base_family)
   }
   # Two discrete var -> heatmap plot

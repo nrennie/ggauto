@@ -1,6 +1,6 @@
 Package: ggauto
 Title: Automatically Create and Style 'ggplot2' Charts
-Version: 0.0.1.9001
+Version: 0.0.1.9002
 Authors@R: 
     person("Nicola", "Rennie", , "nrennie.research@gmail.com", role = c("aut", "cre", "cph"))
 Description: Automatically choose an appropriate chart type based on the
@@ -32,3 +32,4 @@ RoxygenNote: 7.3.3
 Config/Needs/website: nrennie/nrenniepkgdown
 URL: https://nrennie.rbind.io/ggauto/
 BugReports: https://github.com/nrennie/ggauto/issues
+VignetteBuilder: knitr

@@ -25,9 +25,15 @@ auto_y_axis <- function(data) {
   min_value <- min(data, na.rm = TRUE)
   max_value <- max(data, na.rm = TRUE)
   if (min_value < 0 && max_value > 0) {
-    lemon::scale_y_symmetric(labels = scales::comma)
+    lemon::scale_y_symmetric(
+      labels = scales::comma,
+      guide = ggplot2::guide_axis(check.overlap = TRUE)
+    )
   } else {
-    ggplot2::scale_y_continuous(labels = scales::comma)
+    ggplot2::scale_y_continuous(
+      labels = scales::comma,
+      guide = ggplot2::guide_axis(check.overlap = TRUE)
+    )
   }
 }
 
