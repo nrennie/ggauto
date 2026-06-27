@@ -196,7 +196,10 @@ ggauto <- function(data = NULL,
     }
     g <- g +
       ggplot2::labs(y = xlab) +
-      theme_auto(base_size = base_size, base_family = base_family)
+      theme_auto(base_size = base_size, base_family = base_family) +
+      ggplot2::theme(
+        panel.grid.major.y = ggplot2::element_blank()
+      )
   }
   # One discrete var, one continuous -> bar plot / raincloud plot
   else if ((is.character(var1) || is.factor(var1)) &&
@@ -204,8 +207,16 @@ ggauto <- function(data = NULL,
     is.null(var3)) {
     if (max(table(var1)) == 1) {
       g <- ggauto_bar(var1 = var1, var2 = var2)
+      g <- g +
+        ggplot2::labs(y = xlab) +
+        theme_auto(base_size = base_size, base_family = base_family) +
+        ggplot2::theme(
+          panel.grid.major.y = ggplot2::element_blank()
+        )
     } else {
       g <- ggauto_density(var1 = var1, var2 = var2)
+      g <- g +
+        theme_auto(base_size = base_size, base_family = base_family)
     }
     if (is.null(xlab)) {
       xlab <- clean_col_name(var2_name)
@@ -213,9 +224,6 @@ ggauto <- function(data = NULL,
     if (is.null(ylab)) {
       ylab <- ""
     }
-    g <- g +
-      ggplot2::labs(y = xlab) +
-      theme_auto(base_size = base_size, base_family = base_family)
   }
   # Two discrete var -> heatmap plot
   else if ((is.character(var1) || is.factor(var1)) &&

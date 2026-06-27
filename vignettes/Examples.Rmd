@@ -10,7 +10,9 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 8,
+  out.width = "100%"
 )
 ```
 
@@ -102,8 +104,8 @@ If you have pre-computed the counts or some other summary statistics, i.e., if y
 ```{r}
 diamonds |>
   dplyr::group_by(cut) |>
-  dplyr::summarise(med_price = median(price)) |>
-  ggauto(cut, med_price)
+  dplyr::summarise(median_price = median(price)) |>
+  ggauto(cut, median_price)
 ```
 
 As you can see, when the discrete variable is a factor (i.e. `cut`), the desired order is respected. If the discrete variable is not a factor, the bars are ordered from highest to lowest instead of the default alphabetical ordering:
@@ -111,9 +113,9 @@ As you can see, when the discrete variable is a factor (i.e. `cut`), the desired
 ```{r}
 diamonds |>
   dplyr::group_by(cut) |>
-  dplyr::summarise(med_price = median(price)) |>
+  dplyr::summarise(median_price = median(price)) |>
   dplyr::mutate(cut = as.character(cut)) |>
-  ggauto(cut, med_price)
+  ggauto(cut, median_price)
 ```
 
 If you have **two discrete variables**, then a heatmap is created showing the count of each combination of categories. Labels are added showing the count.
